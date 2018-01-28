@@ -28,9 +28,8 @@ namespace CangsApi.Controllers
         public ActionResult getRights(int id)
         {
             var ctx = new Models.CangsODEntities6();
-            var rights = ctx
-                       .AccessRights.Where(r => r.employeeID == id)
-                       .Select(accRight => new { accRight.levelNum}).ToList();
+            var rights = ctx.AccessRights.Where(r => r.employeeID == id)
+                        .Select(accRight => new { accRight.levelNum}).ToList();
 
             return Json(rights, JsonRequestBehavior.AllowGet);
         }
@@ -78,44 +77,70 @@ namespace CangsApi.Controllers
             return Content(acc_right.rightNum.ToString());
         }
 
-        
-         public ActionResult deleteAccessRights(int id = 0)
-         {
-             var tae = Request.Form[0];
-             var ctx = new Models.CangsODEntities6();
-             Models.AccessRight accright= ctx.AccessRights.Find(id);
+        /*[System.Web.Mvc.HttpPost]
+        public ActionResult deleteRights()
+        {
+            var req = Request.Form[0];
+            var ctx = new Models.CangsODEntities6();
+           Models.AccessRight right = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.AccessRight>(req);
 
-             if (accright == null)
-             {
-                 return HttpNotFound();
-             }
+            var rights = ctx.AccessRights.Where(r => r.employeeID == right.employeeID)
+                         .Select(accRight => new { accRight.levelNum }).FirstOrDefault();
 
-             return View(accright);
-         }
+           // ctx.Entry(rights).State = EntityState.Modified;
+            ctx.AccessRights.Remove(right);
+            ctx.SaveChanges();
 
-        //PUT METHOD: DELETE
-        [System.Web.Mvc.HttpPost]
-         public ActionResult deleteAccessRights(Models.AccessRight accright)
-         {
-             var tae = Request.Form[0];
-             var ctx = new Models.CangsODEntities6();
-             accright= Newtonsoft.Json.JsonConvert.DeserializeObject<Models.AccessRight>(tae);
+            return Content("Deleted");
+        }*/
+
+        public ActionResult deleteAccessRights(int id)
+        {
+            //var tae = Request.Form[0];
+            var ctx = new Models.CangsODEntities6();
+            var sel = ctx.AccessRights.Where(e => e.employeeID == id);
+
+            var rights = ctx.AccessRights.Where(r => r.employeeID == id).Select(accRight => new { accRight.rightNum }).ToArray();
+
+
+           for(int i = 0; i < rights.Length; i++)
+            {
+                Models.AccessRight acc = ctx.AccessRights.Find(rights[i].rightNum);
+                ctx.AccessRights.Remove(acc);
+                ctx.SaveChanges();
+            }
+
+            // var remove = ctx.AccessRights.Where(e => e.employeeID == id);
 
 
 
-             if (ModelState.IsValid)
-             {
+            return Content("");
+        }
 
-                 ctx.Entry(accright).State = EntityState.Modified;
-                 ctx.AccessRights.Remove(accright);
-                 ctx.SaveChanges();
-             }
+       //PUT METHOD: DELETE
+       /*[System.Web.Mvc.HttpPost]
+        public ActionResult deleteAccessRights(Models.AccessRight accright)
+        {
+            var tae = Request.Form[0];
+            var ctx = new Models.CangsODEntities6();
+            accright= Newtonsoft.Json.JsonConvert.DeserializeObject<Models.AccessRight>(tae);
 
-             Response.StatusCode = 200;
+           var rights = ctx.AccessRights.Where(r => r.employeeID == accright.employeeID)
+                         .Select(accRight => new { accRight.levelNum }).FirstOrDefault();
 
-             return Content(accright.rightNum.ToString());
+            if (ModelState.IsValid)
+            {
 
-         }
+                ctx.Entry(accright).State = EntityState.Modified;
+                ctx.AccessRights.Remove(accright);
+                ctx.SaveChanges();
+            }
+
+            Response.StatusCode = 200;
+
+            return Content("Deleted");
+
+        }*/
 
         /* public ActionResult editRights(int id = 0)
        {
