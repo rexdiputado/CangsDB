@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CangsODModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AccessLevels">
+    <Key>
+      <PropertyRef Name="levelNum" />
+    </Key>
+    <Property Name="levelNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="levDescription" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AccessRights">
+    <Key>
+      <PropertyRef Name="rightNum" />
+    </Key>
+    <Property Name="rightNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employeeID" Type="int" Nullable="false" />
+    <Property Name="levelNum" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="customerID" />
+    </Key>
+    <Property Name="customerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cusPassword" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="number" Type="int" Nullable="false" />
+    <Property Name="address" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="cusLastName" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="cusFirstName" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="cusMiddleName" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="verificationCode" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="employeeID" />
+    </Key>
+    <Property Name="employeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="empPassword" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="empType" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="empLastName" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="empFirstName" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="empMiddleName" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="itemID" />
+    </Key>
+    <Property Name="itemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="itemName" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="itemQuantityStored" Type="int" Nullable="false" />
+    <Property Name="itemPrice" Type="smallmoney" Nullable="false" />
+    <Property Name="purchaseCount" Type="int" Nullable="false" />
+    <Property Name="picture" Type="image" />
+  </EntityType>
+  <EntityType Name="OrderDetails">
+    <Key>
+      <PropertyRef Name="transID" />
+    </Key>
+    <Property Name="transID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ordetQuantity" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="ordetPrice" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="ordetSubtotal" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="orderID" Type="int" Nullable="false" />
+    <Property Name="itemID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="orderID" />
+    </Key>
+    <Property Name="orderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="orderDate" Type="date" Nullable="false" />
+    <Property Name="orderTotal" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="orderStatus" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="orderRemarks" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="location" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="orderTime" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="packaging" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="customerID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Template">
+    <Key>
+      <PropertyRef Name="templateID" />
+    </Key>
+    <Property Name="templateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="customerID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TemplateDetails">
+    <Key>
+      <PropertyRef Name="tempDetailID" />
+    </Key>
+    <Property Name="tempDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="temdeQuantity" Type="int" Nullable="false" />
+    <Property Name="itemID" Type="int" Nullable="false" />
+    <Property Name="templateID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UpdateItem">
+    <Key>
+      <PropertyRef Name="updateID" />
+    </Key>
+    <Property Name="updateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="logDate" Type="datetime" Nullable="false" />
+    <Property Name="logQuantity" Type="int" Nullable="false" />
+    <Property Name="logPrice" Type="smallmoney" Nullable="false" />
+    <Property Name="itemID" Type="int" Nullable="false" />
+    <Property Name="employeeID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UpdateOrderStatus">
+    <Key>
+      <PropertyRef Name="statusID" />
+    </Key>
+    <Property Name="statusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="orstatStatus" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="orstatRemarks" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="orstatDate" Type="datetime" Nullable="false" />
+    <Property Name="employeeID" Type="int" Nullable="false" />
+    <Property Name="orderID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_AccessRights_AccessLevels">
+    <End Role="AccessLevels" Type="Self.AccessLevels" Multiplicity="1" />
+    <End Role="AccessRights" Type="Self.AccessRights" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AccessLevels">
+        <PropertyRef Name="levelNum" />
+      </Principal>
+      <Dependent Role="AccessRights">
+        <PropertyRef Name="levelNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AccessRights_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="AccessRights" Type="Self.AccessRights" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="AccessRights">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetails_Orders">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="orderID" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="orderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TemplateDetails_Template">
+    <End Role="Template" Type="Self.Template" Multiplicity="1" />
+    <End Role="TemplateDetails" Type="Self.TemplateDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Template">
+        <PropertyRef Name="templateID" />
+      </Principal>
+      <Dependent Role="TemplateDetails">
+        <PropertyRef Name="templateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UpdateItem_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="UpdateItem" Type="Self.UpdateItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="UpdateItem">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UpdateItem_Item">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="UpdateItem" Type="Self.UpdateItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="itemID" />
+      </Principal>
+      <Dependent Role="UpdateItem">
+        <PropertyRef Name="itemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UpdateOrderStatus_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="UpdateOrderStatus" Type="Self.UpdateOrderStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="UpdateOrderStatus">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UpdateOrderStatus_Orders">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="UpdateOrderStatus" Type="Self.UpdateOrderStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="orderID" />
+      </Principal>
+      <Dependent Role="UpdateOrderStatus">
+        <PropertyRef Name="orderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CangsODModelStoreContainer">
+    <EntitySet Name="AccessLevels" EntityType="Self.AccessLevels" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AccessRights" EntityType="Self.AccessRights" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Template" EntityType="Self.Template" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TemplateDetails" EntityType="Self.TemplateDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UpdateItem" EntityType="Self.UpdateItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UpdateOrderStatus" EntityType="Self.UpdateOrderStatus" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_AccessRights_AccessLevels" Association="Self.FK_AccessRights_AccessLevels">
+      <End Role="AccessLevels" EntitySet="AccessLevels" />
+      <End Role="AccessRights" EntitySet="AccessRights" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AccessRights_Employee" Association="Self.FK_AccessRights_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="AccessRights" EntitySet="AccessRights" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetails_Orders" Association="Self.FK_OrderDetails_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TemplateDetails_Template" Association="Self.FK_TemplateDetails_Template">
+      <End Role="Template" EntitySet="Template" />
+      <End Role="TemplateDetails" EntitySet="TemplateDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UpdateItem_Employee" Association="Self.FK_UpdateItem_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="UpdateItem" EntitySet="UpdateItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UpdateItem_Item" Association="Self.FK_UpdateItem_Item">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="UpdateItem" EntitySet="UpdateItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UpdateOrderStatus_Employee" Association="Self.FK_UpdateOrderStatus_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="UpdateOrderStatus" EntitySet="UpdateOrderStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UpdateOrderStatus_Orders" Association="Self.FK_UpdateOrderStatus_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="UpdateOrderStatus" EntitySet="UpdateOrderStatus" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
