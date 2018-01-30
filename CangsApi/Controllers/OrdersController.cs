@@ -14,8 +14,9 @@ namespace CangsApi.Controllers
         {
             ViewBag.Title = "Order";
             var dbase = new Models.CangsODEntities6();
+            //string[] statuses = { "Pending", "Verified", "Canceled", "Delivered" };
             var allAL = dbase
-                       .Orders.Where(o => o.isDeleted ==0)
+                       .Orders.Where(o => o.isDeleted == 0).OrderByDescending(s => s.orderStatus)
                        .Select(order => new { order.orderID,
                                               order.orderDate,
                                               order.orderTotal,
@@ -26,8 +27,19 @@ namespace CangsApi.Controllers
                                               order.packaging,
                                               order.customerID
                                             }).ToList();
+            /*allAL.Sort((x, y) =>
+            {
+                return Array.IndexOf(statuses, x.orderStatus).CompareTo(Array.IndexOf(statuses, y.orderStatus));
+            });*/
+
 
             return Json(allAL, JsonRequestBehavior.AllowGet);
+        }
+
+        void getStatusOrder()
+        {
+           
+            
         }
 
         //POST METHOD: ADD
