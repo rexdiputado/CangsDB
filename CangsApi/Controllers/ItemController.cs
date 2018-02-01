@@ -19,8 +19,8 @@ namespace CangsApi.Controllers
         public ActionResult All()
         {
             ViewBag.Title = "Item";
-            var dbase = new Models.CangsODEntities6();
-            var allAL = dbase.Items.Where(c => c.isDeleted == 0)
+            var dbase = new Models.CangsODEntities7();
+            var allAL = dbase.Items.Where(c => c.isDeleted == 0).OrderBy(i => i.itemName)
                        .Select(item => new { item.itemID,
                                              item.itemName,
                                              item.itemQuantityStored,
@@ -35,7 +35,7 @@ namespace CangsApi.Controllers
         //ITEM SORTING BASED ON PURCHASE COUNT
        public ActionResult itemStatistics()
         {
-            var ctx = new Models.CangsODEntities6();
+            var ctx = new Models.CangsODEntities7();
             int limit = 20;
          
             var descending = ctx.Items.Where(i => i.isDeleted == 0)
@@ -56,7 +56,7 @@ namespace CangsApi.Controllers
         public ActionResult addItem()
         {
             var tae = Request.Form[0];  
-            var ctx = new Models.CangsODEntities6();
+            var ctx = new Models.CangsODEntities7();
             
             Models.Item item = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Item>(tae);
         
@@ -73,7 +73,7 @@ namespace CangsApi.Controllers
         [System.Web.Mvc.HttpPut]
         public ActionResult deleteItem(int id)
         {
-            var ctx = new Models.CangsODEntities6();
+            var ctx = new Models.CangsODEntities7();
             var item = ctx.Items.Where(i => i.itemID == id).FirstOrDefault();
 
             if (item != null)
@@ -97,7 +97,7 @@ namespace CangsApi.Controllers
         public ActionResult editOrder(int id = 0)
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities6();
+            var ctx = new Models.CangsODEntities7();
             Models.Item item= ctx.Items.Find(id);
 
             if (item == null)
@@ -113,7 +113,7 @@ namespace CangsApi.Controllers
         public ActionResult editItem(Models.Item item)
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities6();
+            var ctx = new Models.CangsODEntities7();
             item = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Item>(tae);
 
             if (ModelState.IsValid)

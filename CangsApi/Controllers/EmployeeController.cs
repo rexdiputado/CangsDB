@@ -15,8 +15,8 @@ namespace CangsApi.Controllers
         public ActionResult All ()
         {
             ViewBag.Title = "Employee";
-            var dbase = new Models.CangsODEntities6();
-            var allAL = dbase.Employees.Where(e => e.isDeleted == 0)
+            var dbase = new Models.CangsODEntities7();
+            var allAL = dbase.Employees.Where(e => e.isDeleted == 0).OrderBy( o => o.empLastName)
                        .Select(emp => new { emp.employeeID,
                                             emp.empPassword,
                                             emp.empType,
@@ -34,7 +34,7 @@ namespace CangsApi.Controllers
         public ActionResult addEmployee()
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities6();
+            var ctx = new Models.CangsODEntities7();
             Models.Employee emp = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Employee>(tae);
 
             ctx.Employees.Add(emp);
@@ -48,7 +48,7 @@ namespace CangsApi.Controllers
         //GET ONE EMPLOYEE FOR RIGHTS
         public ActionResult getOneEmployee(int id)
         {
-            var ctx = new Models.CangsODEntities6();
+            var ctx = new Models.CangsODEntities7();
             var get = ctx.Employees.Where(e => e.employeeID == id)
                       .Select(emp => new { emp.empFirstName,
                                            emp.empLastName,
@@ -64,7 +64,7 @@ namespace CangsApi.Controllers
         [System.Web.Mvc.HttpPut]
         public ActionResult delete(int id)
         {
-            var ctx = new Models.CangsODEntities6();
+            var ctx = new Models.CangsODEntities7();
             var employee = ctx.Employees.Where(e => e.employeeID == id).FirstOrDefault();
 
             if (employee != null){
@@ -85,7 +85,7 @@ namespace CangsApi.Controllers
         public ActionResult editEmployee(int id = 0)
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities6();
+            var ctx = new Models.CangsODEntities7();
             Models.Employee employee = ctx.Employees.Find(id);
 
             if (employee == null)
@@ -101,7 +101,7 @@ namespace CangsApi.Controllers
         public ActionResult editEmployee(Models.Employee employee)
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities6();
+            var ctx = new Models.CangsODEntities7();
             employee = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Employee>(tae);
 
             if (ModelState.IsValid)

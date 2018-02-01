@@ -200,52 +200,52 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccessLevel.cs">
-      <DependentUpon>cDB.tt</DependentUpon>
+      <DependentUpon>cDataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccessRight.cs">
-      <DependentUpon>cDB.tt</DependentUpon>
+      <DependentUpon>cDataBase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\cDB.Context.cs">
+    <Compile Include="Models\cDataBase.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>cDB.Context.tt</DependentUpon>
+      <DependentUpon>cDataBase.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\cDB.cs">
+    <Compile Include="Models\cDataBase.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>cDB.tt</DependentUpon>
+      <DependentUpon>cDataBase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\cDB.Designer.cs">
+    <Compile Include="Models\cDataBase.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>cDB.edmx</DependentUpon>
+      <DependentUpon>cDataBase.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Customer.cs">
-      <DependentUpon>cDB.tt</DependentUpon>
+      <DependentUpon>cDataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Employee.cs">
-      <DependentUpon>cDB.tt</DependentUpon>
+      <DependentUpon>cDataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Item.cs">
-      <DependentUpon>cDB.tt</DependentUpon>
+      <DependentUpon>cDataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs">
-      <DependentUpon>cDB.tt</DependentUpon>
+      <DependentUpon>cDataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OrderDetail.cs">
-      <DependentUpon>cDB.tt</DependentUpon>
+      <DependentUpon>cDataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Template.cs">
-      <DependentUpon>cDB.tt</DependentUpon>
+      <DependentUpon>cDataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TemplateDetail.cs">
-      <DependentUpon>cDB.tt</DependentUpon>
+      <DependentUpon>cDataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UpdateItem.cs">
-      <DependentUpon>cDB.tt</DependentUpon>
+      <DependentUpon>cDataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UpdateOrderStatus.cs">
-      <DependentUpon>cDB.tt</DependentUpon>
+      <DependentUpon>cDataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -256,15 +256,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\cDB.Context.tt">
+    <Content Include="Models\cDataBase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>cDB.edmx</DependentUpon>
-      <LastGenOutput>cDB.Context.cs</LastGenOutput>
+      <DependentUpon>cDataBase.edmx</DependentUpon>
+      <LastGenOutput>cDataBase.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\cDB.tt">
+    <Content Include="Models\cDataBase.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>cDB.edmx</DependentUpon>
-      <LastGenOutput>cDB.cs</LastGenOutput>
+      <DependentUpon>cDataBase.edmx</DependentUpon>
+      <LastGenOutput>cDataBase.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -291,12 +291,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <EntityDeploy Include="Models\cDB.edmx">
+    <EntityDeploy Include="Models\cDataBase.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>cDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>cDataBase.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\cDB.edmx.diagram">
-      <DependentUpon>cDB.edmx</DependentUpon>
+    <Content Include="Models\cDataBase.edmx.diagram">
+      <DependentUpon>cDataBase.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

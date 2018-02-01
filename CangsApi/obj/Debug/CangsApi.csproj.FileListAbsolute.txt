@@ -72,6 +72,6 @@ C:\Users\Asus\documents\visual studio 2017\Projects\CangsApi\CangsApi\bin\Micros
 C:\Users\Asus\documents\visual studio 2017\Projects\CangsApi\CangsApi\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\Asus\documents\visual studio 2017\Projects\CangsApi\CangsApi\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\Asus\documents\visual studio 2017\Projects\CangsApi\CangsApi\bin\Microsoft.AI.Web.xml
-C:\Users\Asus\documents\visual studio 2017\Projects\CangsApi\CangsApi\obj\Debug\CangsApi.csprojResolveAssemblyReference.cache
 C:\Users\Asus\documents\visual studio 2017\Projects\CangsApi\CangsApi\obj\Debug\CangsApi.dll
 C:\Users\Asus\documents\visual studio 2017\Projects\CangsApi\CangsApi\obj\Debug\CangsApi.pdb
+C:\Users\Asus\documents\visual studio 2017\Projects\CangsApi\CangsApi\obj\Debug\CangsApi.csprojResolveAssemblyReference.cache

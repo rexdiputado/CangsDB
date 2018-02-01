@@ -22,7 +22,7 @@ namespace CangsApi.Models
         }
     
         public int orderID { get; set; }
-        public System.DateTime orderDate { get; set; }
+        public string orderDate { get; set; }
         public string orderTotal { get; set; }
         public string orderStatus { get; set; }
         public string orderRemarks { get; set; }

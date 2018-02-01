@@ -12,7 +12,7 @@ namespace CangsApi.Controllers
         public ActionResult All()
         {
             ViewBag.Title = "TemplateDetails";
-            var dbase = new Models.CangsODEntities6();
+            var dbase = new Models.CangsODEntities7();
             var allAL = dbase.TemplateDetails.Select(temde => new { temde.tempDetailID, temde.temdeQuantity, temde.itemID, temde.templateID }).ToList();
 
             return Json(allAL, JsonRequestBehavior.AllowGet);
@@ -22,7 +22,7 @@ namespace CangsApi.Controllers
         public ActionResult addTemplateDetails()
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities6();
+            var ctx = new Models.CangsODEntities7();
             Models.TemplateDetail temp_det= Newtonsoft.Json.JsonConvert.DeserializeObject<Models.TemplateDetail>(tae);
 
             ctx.TemplateDetails.Add(temp_det);

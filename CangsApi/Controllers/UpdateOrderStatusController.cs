@@ -12,7 +12,7 @@ namespace CangsApi.Controllers
         public ActionResult All()
         {
             ViewBag.Title = "UpdateOrderStatus";
-            var dbase = new Models.CangsODEntities6();
+            var dbase = new Models.CangsODEntities7();
             var allAL = dbase.UpdateOrderStatus1
                        .Select(orstat => new { orstat.orstatStatus,
                                                orstat.statusID,
@@ -30,7 +30,7 @@ namespace CangsApi.Controllers
         public ActionResult addUpdateStatus()
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities6();
+            var ctx = new Models.CangsODEntities7();
             Models.UpdateOrderStatus update_stat = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.UpdateOrderStatus>(tae);
 
             ctx.UpdateOrderStatus1.Add(update_stat);

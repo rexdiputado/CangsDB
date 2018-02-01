@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CangsODModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="CangsODModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AccessLevels">
           <Key>
             <PropertyRef Name="levelNum" />
@@ -56,7 +56,7 @@
           <Property Name="itemPrice" Type="smallmoney" Nullable="false" />
           <Property Name="purchaseCount" Type="int" Nullable="false" />
           <Property Name="isDeleted" Type="int" Nullable="false" />
-          <Property Name="picture" Type="varchar(max)" />
+          <Property Name="picture" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
@@ -74,7 +74,7 @@
             <PropertyRef Name="orderID" />
           </Key>
           <Property Name="orderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="orderDate" Type="datetime" Nullable="false" />
+          <Property Name="orderDate" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="orderTotal" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="orderStatus" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="orderRemarks" Type="varchar" MaxLength="250" Nullable="false" />
@@ -290,7 +290,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CangsODModelStoreContainer">
+        <EntityContainer Name="CangsODModel1StoreContainer">
           <EntitySet Name="AccessLevels" EntityType="Self.AccessLevels" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AccessRights" EntityType="Self.AccessRights" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
@@ -355,7 +355,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="CangsODModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="CangsODModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="AccessLevel">
           <Key>
             <PropertyRef Name="levelNum" />
@@ -415,7 +415,7 @@
           <Property Name="itemPrice" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
           <Property Name="purchaseCount" Type="Int32" Nullable="false" />
           <Property Name="isDeleted" Type="Int32" Nullable="false" />
-          <Property Name="picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Item" FromRole="Item" ToRole="OrderDetails" />
           <NavigationProperty Name="TemplateDetails" Relationship="Self.FK_TemplateDetails_Item" FromRole="Item" ToRole="TemplateDetails" />
           <NavigationProperty Name="UpdateItems" Relationship="Self.FK_UpdateItem_Item" FromRole="Item" ToRole="UpdateItem" />
@@ -438,7 +438,7 @@
             <PropertyRef Name="orderID" />
           </Key>
           <Property Name="orderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="orderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="orderDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="orderTotal" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="orderStatus" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="orderRemarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
@@ -571,7 +571,7 @@
           <End Role="Employee" Type="Self.Employee" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="UpdateOrderStatus" Type="CangsODModel.UpdateOrderStatus" Multiplicity="*" />
+          <End Role="UpdateOrderStatus" Type="CangsODModel1.UpdateOrderStatus" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="employeeID" />
@@ -641,7 +641,7 @@
           <End Role="Orders" Type="Self.Order" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="UpdateOrderStatus" Type="CangsODModel.UpdateOrderStatus" Multiplicity="*" />
+          <End Role="UpdateOrderStatus" Type="CangsODModel1.UpdateOrderStatus" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Orders">
               <PropertyRef Name="orderID" />
@@ -665,7 +665,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CangsODEntities6" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CangsODEntities7" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AccessLevels" EntityType="Self.AccessLevel" />
           <EntitySet Name="AccessRights" EntityType="Self.AccessRight" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
@@ -676,7 +676,7 @@
           <EntitySet Name="Templates" EntityType="Self.Template" />
           <EntitySet Name="TemplateDetails" EntityType="Self.TemplateDetail" />
           <EntitySet Name="UpdateItems" EntityType="Self.UpdateItem" />
-          <EntitySet Name="UpdateOrderStatus1" EntityType="CangsODModel.UpdateOrderStatus" />
+          <EntitySet Name="UpdateOrderStatus1" EntityType="CangsODModel1.UpdateOrderStatus" />
           <AssociationSet Name="FK_AccessRights_AccessLevels" Association="Self.FK_AccessRights_AccessLevels">
             <End Role="AccessLevels" EntitySet="AccessLevels" />
             <End Role="AccessRights" EntitySet="AccessRights" />
@@ -731,9 +731,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CangsODModelStoreContainer" CdmEntityContainer="CangsODEntities6">
+        <EntityContainerMapping StorageEntityContainer="CangsODModel1StoreContainer" CdmEntityContainer="CangsODEntities7">
           <EntitySetMapping Name="AccessLevels">
-            <EntityTypeMapping TypeName="CangsODModel.AccessLevel">
+            <EntityTypeMapping TypeName="CangsODModel1.AccessLevel">
               <MappingFragment StoreEntitySet="AccessLevels">
                 <ScalarProperty Name="levelNum" ColumnName="levelNum" />
                 <ScalarProperty Name="levDescription" ColumnName="levDescription" />
@@ -741,7 +741,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AccessRights">
-            <EntityTypeMapping TypeName="CangsODModel.AccessRight">
+            <EntityTypeMapping TypeName="CangsODModel1.AccessRight">
               <MappingFragment StoreEntitySet="AccessRights">
                 <ScalarProperty Name="rightNum" ColumnName="rightNum" />
                 <ScalarProperty Name="employeeID" ColumnName="employeeID" />
@@ -750,7 +750,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="CangsODModel.Customer">
+            <EntityTypeMapping TypeName="CangsODModel1.Customer">
               <MappingFragment StoreEntitySet="Customer">
                 <ScalarProperty Name="customerID" ColumnName="customerID" />
                 <ScalarProperty Name="cusPassword" ColumnName="cusPassword" />
@@ -765,7 +765,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employees">
-            <EntityTypeMapping TypeName="CangsODModel.Employee">
+            <EntityTypeMapping TypeName="CangsODModel1.Employee">
               <MappingFragment StoreEntitySet="Employee">
                 <ScalarProperty Name="employeeID" ColumnName="employeeID" />
                 <ScalarProperty Name="empPassword" ColumnName="empPassword" />
@@ -778,7 +778,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Items">
-            <EntityTypeMapping TypeName="CangsODModel.Item">
+            <EntityTypeMapping TypeName="CangsODModel1.Item">
               <MappingFragment StoreEntitySet="Item">
                 <ScalarProperty Name="itemID" ColumnName="itemID" />
                 <ScalarProperty Name="itemName" ColumnName="itemName" />
@@ -791,7 +791,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderDetails">
-            <EntityTypeMapping TypeName="CangsODModel.OrderDetail">
+            <EntityTypeMapping TypeName="CangsODModel1.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
                 <ScalarProperty Name="transID" ColumnName="transID" />
                 <ScalarProperty Name="ordetQuantity" ColumnName="ordetQuantity" />
@@ -803,7 +803,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="CangsODModel.Order">
+            <EntityTypeMapping TypeName="CangsODModel1.Order">
               <MappingFragment StoreEntitySet="Orders">
                 <ScalarProperty Name="orderID" ColumnName="orderID" />
                 <ScalarProperty Name="orderDate" ColumnName="orderDate" />
@@ -819,7 +819,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Templates">
-            <EntityTypeMapping TypeName="CangsODModel.Template">
+            <EntityTypeMapping TypeName="CangsODModel1.Template">
               <MappingFragment StoreEntitySet="Template">
                 <ScalarProperty Name="templateID" ColumnName="templateID" />
                 <ScalarProperty Name="customerID" ColumnName="customerID" />
@@ -827,7 +827,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TemplateDetails">
-            <EntityTypeMapping TypeName="CangsODModel.TemplateDetail">
+            <EntityTypeMapping TypeName="CangsODModel1.TemplateDetail">
               <MappingFragment StoreEntitySet="TemplateDetails">
                 <ScalarProperty Name="tempDetailID" ColumnName="tempDetailID" />
                 <ScalarProperty Name="temdeQuantity" ColumnName="temdeQuantity" />
@@ -837,7 +837,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UpdateItems">
-            <EntityTypeMapping TypeName="CangsODModel.UpdateItem">
+            <EntityTypeMapping TypeName="CangsODModel1.UpdateItem">
               <MappingFragment StoreEntitySet="UpdateItem">
                 <ScalarProperty Name="updateID" ColumnName="updateID" />
                 <ScalarProperty Name="logDate" ColumnName="logDate" />
@@ -849,7 +849,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UpdateOrderStatus1">
-            <EntityTypeMapping TypeName="CangsODModel.UpdateOrderStatus">
+            <EntityTypeMapping TypeName="CangsODModel1.UpdateOrderStatus">
               <MappingFragment StoreEntitySet="UpdateOrderStatus">
                 <ScalarProperty Name="statusID" ColumnName="statusID" />
                 <ScalarProperty Name="orstatStatus" ColumnName="orstatStatus" />
