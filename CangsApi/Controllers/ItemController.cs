@@ -19,15 +19,17 @@ namespace CangsApi.Controllers
         public ActionResult All()
         {
             ViewBag.Title = "Item";
-            var dbase = new Models.CangsODEntities7();
+            var dbase = new Models.CangsODEntities10();
             var allAL = dbase.Items.Where(c => c.isDeleted == 0).OrderBy(i => i.itemName)
                        .Select(item => new { item.itemID,
                                              item.itemName,
                                              item.itemQuantityStored,
                                              item.itemPrice,
                                              item.purchaseCount,
-                                             item.picture
-                                           }).ToList();
+                                             item.picture,
+                                             item.itemDescription,
+                                             item.category
+                       }).ToList();
 
             return Json(allAL, JsonRequestBehavior.AllowGet);
         }
@@ -35,7 +37,7 @@ namespace CangsApi.Controllers
         //ITEM SORTING BASED ON PURCHASE COUNT
        public ActionResult itemStatistics()
         {
-            var ctx = new Models.CangsODEntities7();
+            var ctx = new Models.CangsODEntities10();
             int limit = 20;
          
             var descending = ctx.Items.Where(i => i.isDeleted == 0)
@@ -45,10 +47,30 @@ namespace CangsApi.Controllers
                                                             d.itemQuantityStored,
                                                             d.itemPrice,
                                                             d.purchaseCount,
-                                                            d.picture
+                                                            d.picture,
+                                                            d.itemDescription,
+                                                            d.category
                                                            }).ToList();
             
             return Json(descending, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult sortCategory()
+        {
+            var ctx = new Models.CangsODEntities10();
+            var category = ctx.Items.OrderBy(c => c.category)
+                           .Select(cat => new
+                           {   cat.itemID,
+                               cat.itemName,
+                               cat.itemQuantityStored,
+                               cat.itemPrice,
+                               cat.purchaseCount,
+                               cat.picture,
+                               cat.itemDescription,
+                               cat.category
+                           }).ToList();
+
+            return Json(category, JsonRequestBehavior.AllowGet);
         }
       
         //POST METHOD: ADD
@@ -56,7 +78,7 @@ namespace CangsApi.Controllers
         public ActionResult addItem()
         {
             var tae = Request.Form[0];  
-            var ctx = new Models.CangsODEntities7();
+            var ctx = new Models.CangsODEntities10();
             
             Models.Item item = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Item>(tae);
         
@@ -69,11 +91,30 @@ namespace CangsApi.Controllers
            
         }
 
+        public ActionResult restoreItem()
+        {
+            var ctx = new Models.CangsODEntities10();
+            var restore = ctx.Items.Where(r => r.isDeleted == 1)
+                          .Select(item => new
+                          {
+                              item.itemID,
+                              item.itemName,
+                              item.itemQuantityStored,
+                              item.itemPrice,
+                              item.purchaseCount,
+                              item.picture,
+                              item.itemDescription,
+                              item.category
+                          }).ToList();
+
+            return Json(restore, JsonRequestBehavior.AllowGet);
+        }
+
         //PUT METHOD: DELETE
         [System.Web.Mvc.HttpPut]
         public ActionResult deleteItem(int id)
         {
-            var ctx = new Models.CangsODEntities7();
+            var ctx = new Models.CangsODEntities10();
             var item = ctx.Items.Where(i => i.itemID == id).FirstOrDefault();
 
             if (item != null)
@@ -97,7 +138,7 @@ namespace CangsApi.Controllers
         public ActionResult editOrder(int id = 0)
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities7();
+            var ctx = new Models.CangsODEntities10();
             Models.Item item= ctx.Items.Find(id);
 
             if (item == null)
@@ -113,7 +154,7 @@ namespace CangsApi.Controllers
         public ActionResult editItem(Models.Item item)
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities7();
+            var ctx = new Models.CangsODEntities10();
             item = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Item>(tae);
 
             if (ModelState.IsValid)

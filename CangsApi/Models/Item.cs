@@ -29,6 +29,8 @@ namespace CangsApi.Models
         public int purchaseCount { get; set; }
         public int isDeleted { get; set; }
         public string picture { get; set; }
+        public string itemDescription { get; set; }
+        public string category { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }

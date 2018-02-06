@@ -187,6 +187,7 @@
     <Compile Include="Controllers\AccessLevelsController.cs" />
     <Compile Include="Controllers\AccessRightsController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\CustomerLogController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\OrderDetailsController.cs" />
@@ -200,52 +201,55 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccessLevel.cs">
-      <DependentUpon>cDataBase.tt</DependentUpon>
+      <DependentUpon>cangsInc.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccessRight.cs">
-      <DependentUpon>cDataBase.tt</DependentUpon>
+      <DependentUpon>cangsInc.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\cDataBase.Context.cs">
+    <Compile Include="Models\cangsInc.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>cDataBase.Context.tt</DependentUpon>
+      <DependentUpon>cangsInc.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\cDataBase.cs">
+    <Compile Include="Models\cangsInc.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>cDataBase.tt</DependentUpon>
+      <DependentUpon>cangsInc.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\cDataBase.Designer.cs">
+    <Compile Include="Models\cangsInc.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>cDataBase.edmx</DependentUpon>
+      <DependentUpon>cangsInc.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Customer.cs">
-      <DependentUpon>cDataBase.tt</DependentUpon>
+      <DependentUpon>cangsInc.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerLog.cs">
+      <DependentUpon>cangsInc.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Employee.cs">
-      <DependentUpon>cDataBase.tt</DependentUpon>
+      <DependentUpon>cangsInc.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Item.cs">
-      <DependentUpon>cDataBase.tt</DependentUpon>
+      <DependentUpon>cangsInc.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs">
-      <DependentUpon>cDataBase.tt</DependentUpon>
+      <DependentUpon>cangsInc.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OrderDetail.cs">
-      <DependentUpon>cDataBase.tt</DependentUpon>
+      <DependentUpon>cangsInc.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Template.cs">
-      <DependentUpon>cDataBase.tt</DependentUpon>
+      <DependentUpon>cangsInc.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TemplateDetail.cs">
-      <DependentUpon>cDataBase.tt</DependentUpon>
+      <DependentUpon>cangsInc.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UpdateItem.cs">
-      <DependentUpon>cDataBase.tt</DependentUpon>
+      <DependentUpon>cangsInc.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UpdateOrderStatus.cs">
-      <DependentUpon>cDataBase.tt</DependentUpon>
+      <DependentUpon>cangsInc.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -256,15 +260,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\cDataBase.Context.tt">
+    <Content Include="Models\cangsInc.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>cDataBase.edmx</DependentUpon>
-      <LastGenOutput>cDataBase.Context.cs</LastGenOutput>
+      <DependentUpon>cangsInc.edmx</DependentUpon>
+      <LastGenOutput>cangsInc.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\cDataBase.tt">
+    <Content Include="Models\cangsInc.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>cDataBase.edmx</DependentUpon>
-      <LastGenOutput>cDataBase.cs</LastGenOutput>
+      <DependentUpon>cangsInc.edmx</DependentUpon>
+      <LastGenOutput>cangsInc.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -291,12 +295,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <EntityDeploy Include="Models\cDataBase.edmx">
+    <EntityDeploy Include="Models\cangsInc.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>cDataBase.Designer.cs</LastGenOutput>
+      <LastGenOutput>cangsInc.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\cDataBase.edmx.diagram">
-      <DependentUpon>cDataBase.edmx</DependentUpon>
+    <Content Include="Models\cangsInc.edmx.diagram">
+      <DependentUpon>cangsInc.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -331,6 +335,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\AccessRights\" />
     <Folder Include="Views\AcessLevels\" />
+    <Folder Include="Views\CustomerLog\" />
     <Folder Include="Views\Customer\" />
     <Folder Include="Views\Employee\" />
     <Folder Include="Views\Item\" />

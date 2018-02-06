@@ -13,10 +13,10 @@ namespace CangsApi.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CangsODEntities7 : DbContext
+    public partial class CangsODEntities10 : DbContext
     {
-        public CangsODEntities7()
-            : base("name=CangsODEntities7")
+        public CangsODEntities10()
+            : base("name=CangsODEntities10")
         {
         }
     
@@ -28,6 +28,7 @@ namespace CangsApi.Models
         public virtual DbSet<AccessLevel> AccessLevels { get; set; }
         public virtual DbSet<AccessRight> AccessRights { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<CustomerLog> CustomerLogs { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }

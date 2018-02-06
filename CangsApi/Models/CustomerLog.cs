@@ -12,15 +12,19 @@ namespace CangsApi.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UpdateOrderStatus
+    public partial class CustomerLog
     {
-        public int statusID { get; set; }
-        public string orstatStatus { get; set; }
-        public string orstatRemarks { get; set; }
-        public System.DateTime orstatDate { get; set; }
+        public int logID { get; set; }
+        public string cusLogNumber { get; set; }
+        public string cusLogAddress { get; set; }
+        public string cusLogLastName { get; set; }
+        public string cusLogFirstName { get; set; }
+        public string cusLogMiddleName { get; set; }
+        public System.DateTime cusLogTime { get; set; }
         public int employeeID { get; set; }
-        public int orderID { get; set; }
+        public int customerID { get; set; }
     
-        public virtual Order Order { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

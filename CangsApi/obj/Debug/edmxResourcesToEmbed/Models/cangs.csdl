@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="CangsODModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="CangsODModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="AccessLevel">
     <Key>
       <PropertyRef Name="levelNum" />
@@ -31,7 +31,7 @@
     <Property Name="cusMiddleName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="verificationCode" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="isDeleted" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Customer" FromRole="Customer" ToRole="Orders" />
+    <NavigationProperty Name="CustomerLogs" Relationship="Self.FK_CustomerLog_Customer" FromRole="Customer" ToRole="CustomerLog" />
     <NavigationProperty Name="Templates" Relationship="Self.FK_Template_Customer" FromRole="Customer" ToRole="Template" />
   </EntityType>
   <EntityType Name="Employee">
@@ -46,8 +46,8 @@
     <Property Name="empMiddleName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="isDeleted" Type="Int32" Nullable="false" />
     <NavigationProperty Name="AccessRights" Relationship="Self.FK_AccessRights_Employee" FromRole="Employee" ToRole="AccessRights" />
+    <NavigationProperty Name="CustomerLogs" Relationship="Self.FK_CustomerLog_Employee" FromRole="Employee" ToRole="CustomerLog" />
     <NavigationProperty Name="UpdateItems" Relationship="Self.FK_UpdateItem_Employee" FromRole="Employee" ToRole="UpdateItem" />
-    <NavigationProperty Name="UpdateOrderStatus" Relationship="Self.FK_UpdateOrderStatus_Employee" FromRole="Employee" ToRole="UpdateOrderStatus" />
   </EntityType>
   <EntityType Name="Item">
     <Key>
@@ -60,11 +60,11 @@
     <Property Name="purchaseCount" Type="Int32" Nullable="false" />
     <Property Name="isDeleted" Type="Int32" Nullable="false" />
     <Property Name="picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="itemDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="category" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Item" FromRole="Item" ToRole="OrderDetails" />
     <NavigationProperty Name="TemplateDetails" Relationship="Self.FK_TemplateDetails_Item" FromRole="Item" ToRole="TemplateDetails" />
     <NavigationProperty Name="UpdateItems" Relationship="Self.FK_UpdateItem_Item" FromRole="Item" ToRole="UpdateItem" />
-    <Property Name="itemDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="category" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
@@ -77,7 +77,6 @@
     <Property Name="orderID" Type="Int32" Nullable="false" />
     <Property Name="itemID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Item" Relationship="Self.FK_OrderDetails_Item" FromRole="OrderDetails" ToRole="Item" />
-    <NavigationProperty Name="Order" Relationship="Self.FK_OrderDetails_Orders" FromRole="OrderDetails" ToRole="Orders" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -93,8 +92,6 @@
     <Property Name="packaging" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="customerID" Type="Int32" Nullable="false" />
     <Property Name="isDeleted" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Customer" Relationship="Self.FK_Orders_Customer" FromRole="Orders" ToRole="Customer" />
-    <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Orders" FromRole="Orders" ToRole="OrderDetails" />
     <NavigationProperty Name="UpdateOrderStatus" Relationship="Self.FK_UpdateOrderStatus_Orders" FromRole="Orders" ToRole="UpdateOrderStatus" />
   </EntityType>
   <EntityType Name="Template">
@@ -140,8 +137,31 @@
     <Property Name="orstatDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="employeeID" Type="Int32" Nullable="false" />
     <Property Name="orderID" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Employee" Relationship="Self.FK_UpdateOrderStatus_Employee" FromRole="UpdateOrderStatus" ToRole="Employee" />
     <NavigationProperty Name="Order" Relationship="Self.FK_UpdateOrderStatus_Orders" FromRole="UpdateOrderStatus" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="CustomerLog">
+    <Key>
+      <PropertyRef Name="cusLogNumber" />
+      <PropertyRef Name="cusLogAddress" />
+      <PropertyRef Name="cusLogLastName" />
+      <PropertyRef Name="cusLogFirstName" />
+      <PropertyRef Name="cusLogMiddleName" />
+      <PropertyRef Name="cusLogTime" />
+      <PropertyRef Name="employeeID" />
+      <PropertyRef Name="customerID" />
+      <PropertyRef Name="logID" />
+    </Key>
+    <Property Name="logID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cusLogNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cusLogAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cusLogLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cusLogFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cusLogMiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cusLogTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="employeeID" Type="Int32" Nullable="false" />
+    <Property Name="customerID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_CustomerLog_Customer" FromRole="CustomerLog" ToRole="Customer" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_CustomerLog_Employee" FromRole="CustomerLog" ToRole="Employee" />
   </EntityType>
   <Association Name="FK_AccessRights_AccessLevels">
     <End Role="AccessLevels" Type="Self.AccessLevel" Multiplicity="1">
@@ -171,16 +191,16 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Orders_Customer">
+  <Association Name="FK_CustomerLog_Customer">
     <End Role="Customer" Type="Self.Customer" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <End Role="CustomerLog" Type="Self.CustomerLog" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Customer">
         <PropertyRef Name="customerID" />
       </Principal>
-      <Dependent Role="Orders">
+      <Dependent Role="CustomerLog">
         <PropertyRef Name="customerID" />
       </Dependent>
     </ReferentialConstraint>
@@ -199,6 +219,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_CustomerLog_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CustomerLog" Type="Self.CustomerLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="CustomerLog">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_UpdateItem_Employee">
     <End Role="Employee" Type="Self.Employee" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -209,20 +243,6 @@
         <PropertyRef Name="employeeID" />
       </Principal>
       <Dependent Role="UpdateItem">
-        <PropertyRef Name="employeeID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UpdateOrderStatus_Employee">
-    <End Role="Employee" Type="Self.Employee" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="UpdateOrderStatus" Type="CangsODModel1.UpdateOrderStatus" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Employee">
-        <PropertyRef Name="employeeID" />
-      </Principal>
-      <Dependent Role="UpdateOrderStatus">
         <PropertyRef Name="employeeID" />
       </Dependent>
     </ReferentialConstraint>
@@ -269,25 +289,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_OrderDetails_Orders">
-    <End Role="Orders" Type="Self.Order" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Orders">
-        <PropertyRef Name="orderID" />
-      </Principal>
-      <Dependent Role="OrderDetails">
-        <PropertyRef Name="orderID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_UpdateOrderStatus_Orders">
     <End Role="Orders" Type="Self.Order" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Role="UpdateOrderStatus" Type="CangsODModel1.UpdateOrderStatus" Multiplicity="*" />
+    <End Role="UpdateOrderStatus" Type="CangsODModel.UpdateOrderStatus" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Orders">
         <PropertyRef Name="orderID" />
@@ -311,7 +317,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="CangsODEntities7" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CangsODEntities9" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AccessLevels" EntityType="Self.AccessLevel" />
     <EntitySet Name="AccessRights" EntityType="Self.AccessRight" />
     <EntitySet Name="Customers" EntityType="Self.Customer" />
@@ -322,7 +328,8 @@
     <EntitySet Name="Templates" EntityType="Self.Template" />
     <EntitySet Name="TemplateDetails" EntityType="Self.TemplateDetail" />
     <EntitySet Name="UpdateItems" EntityType="Self.UpdateItem" />
-    <EntitySet Name="UpdateOrderStatus1" EntityType="CangsODModel1.UpdateOrderStatus" />
+    <EntitySet Name="UpdateOrderStatus1" EntityType="CangsODModel.UpdateOrderStatus" />
+    <EntitySet Name="CustomerLogs" EntityType="Self.CustomerLog" />
     <AssociationSet Name="FK_AccessRights_AccessLevels" Association="Self.FK_AccessRights_AccessLevels">
       <End Role="AccessLevels" EntitySet="AccessLevels" />
       <End Role="AccessRights" EntitySet="AccessRights" />
@@ -331,21 +338,21 @@
       <End Role="Employee" EntitySet="Employees" />
       <End Role="AccessRights" EntitySet="AccessRights" />
     </AssociationSet>
-    <AssociationSet Name="FK_Orders_Customer" Association="Self.FK_Orders_Customer">
+    <AssociationSet Name="FK_CustomerLog_Customer" Association="Self.FK_CustomerLog_Customer">
       <End Role="Customer" EntitySet="Customers" />
-      <End Role="Orders" EntitySet="Orders" />
+      <End Role="CustomerLog" EntitySet="CustomerLogs" />
     </AssociationSet>
     <AssociationSet Name="FK_Template_Customer" Association="Self.FK_Template_Customer">
       <End Role="Customer" EntitySet="Customers" />
       <End Role="Template" EntitySet="Templates" />
     </AssociationSet>
+    <AssociationSet Name="FK_CustomerLog_Employee" Association="Self.FK_CustomerLog_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="CustomerLog" EntitySet="CustomerLogs" />
+    </AssociationSet>
     <AssociationSet Name="FK_UpdateItem_Employee" Association="Self.FK_UpdateItem_Employee">
       <End Role="Employee" EntitySet="Employees" />
       <End Role="UpdateItem" EntitySet="UpdateItems" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UpdateOrderStatus_Employee" Association="Self.FK_UpdateOrderStatus_Employee">
-      <End Role="Employee" EntitySet="Employees" />
-      <End Role="UpdateOrderStatus" EntitySet="UpdateOrderStatus1" />
     </AssociationSet>
     <AssociationSet Name="FK_OrderDetails_Item" Association="Self.FK_OrderDetails_Item">
       <End Role="Item" EntitySet="Items" />
@@ -358,10 +365,6 @@
     <AssociationSet Name="FK_UpdateItem_Item" Association="Self.FK_UpdateItem_Item">
       <End Role="Item" EntitySet="Items" />
       <End Role="UpdateItem" EntitySet="UpdateItems" />
-    </AssociationSet>
-    <AssociationSet Name="FK_OrderDetails_Orders" Association="Self.FK_OrderDetails_Orders">
-      <End Role="Orders" EntitySet="Orders" />
-      <End Role="OrderDetails" EntitySet="OrderDetails" />
     </AssociationSet>
     <AssociationSet Name="FK_UpdateOrderStatus_Orders" Association="Self.FK_UpdateOrderStatus_Orders">
       <End Role="Orders" EntitySet="Orders" />

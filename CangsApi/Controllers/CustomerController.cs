@@ -18,7 +18,7 @@ namespace CangsApi.Controllers
         public ActionResult All()
         {
             ViewBag.Title = "customer";
-            var dbase = new Models.CangsODEntities7();
+            var dbase = new Models.CangsODEntities10();
             var allAL = dbase.Customers.Where(c => c.isDeleted == 0).OrderBy(u => u.cusLastName)
                        .Select(cus => new { cus.customerID,
                                             cus.cusPassword,
@@ -32,12 +32,31 @@ namespace CangsApi.Controllers
 
             return Json(allAL, JsonRequestBehavior.AllowGet); }
 
+
+        public ActionResult getCustomer(int id)
+        {
+            var ctx = new Models.CangsODEntities10();
+            var customer = ctx.Customers.Where(r => r.customerID == id)
+                        .Select(c => new {
+                            c.customerID,
+                            c.cusPassword,
+                            c.number,
+                            c.address,
+                            c.cusLastName,
+                            c.cusMiddleName,
+                            c.cusFirstName,
+                            c.verificationCode
+                        }).ToList();
+
+            return Json(customer, JsonRequestBehavior.AllowGet);
+        }
+
         //POST METHOD: ADD
         [System.Web.Mvc.HttpPost]
         public ActionResult addCustomer()
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities7();
+            var ctx = new Models.CangsODEntities10();
             Models.Customer customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Customer>(tae);
 
             ctx.Customers.Add(customer);
@@ -52,7 +71,7 @@ namespace CangsApi.Controllers
         [System.Web.Mvc.HttpPut]
         public ActionResult delete(int id)
         {
-            var ctx = new Models.CangsODEntities7();
+            var ctx = new Models.CangsODEntities10();
             var customer = ctx.Customers.Where(c => c.customerID== id).FirstOrDefault();
 
             if (customer != null)
@@ -77,7 +96,7 @@ namespace CangsApi.Controllers
         public ActionResult editCustomer(int id = 0)
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities7();
+            var ctx = new Models.CangsODEntities10();
             Models.Customer customer = ctx.Customers.Find(id);
 
             if(customer == null)
@@ -93,7 +112,7 @@ namespace CangsApi.Controllers
         public ActionResult editCustomer(Models.Customer customer)
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities7();
+            var ctx = new Models.CangsODEntities10();
             customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Customer>(tae);
 
             if(ModelState.IsValid)

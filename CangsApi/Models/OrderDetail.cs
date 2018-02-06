@@ -22,6 +22,5 @@ namespace CangsApi.Models
         public int itemID { get; set; }
     
         public virtual Item Item { get; set; }
-        public virtual Order Order { get; set; }
     }
 }

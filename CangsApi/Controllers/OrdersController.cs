@@ -13,7 +13,7 @@ namespace CangsApi.Controllers
         public ActionResult All()
         {
             ViewBag.Title = "Order";
-            var dbase = new Models.CangsODEntities7();
+            var dbase = new Models.CangsODEntities10();
             //string[] statuses = { "Pending", "Verified", "Canceled", "Delivered" };
             var allAL = dbase
                        .Orders.Where(o => o.isDeleted == 0).OrderByDescending(s => s.orderStatus)
@@ -36,10 +36,43 @@ namespace CangsApi.Controllers
             return Json(allAL, JsonRequestBehavior.AllowGet);
         }
 
-        void getStatusOrder()
+       public ActionResult filterStatusPV()
         {
-           
-            
+            var dbase = new Models.CangsODEntities10();
+            var filter = dbase.Orders.Where(f => f.orderStatus == "pending"  || f.orderStatus == "verified").OrderBy(s => s.orderStatus)
+                         .Select(o => new {
+                             o.orderID,
+                             o.orderDate,
+                             o.orderTotal,
+                             o.orderStatus,
+                             o.orderRemarks,
+                             o.location,
+                             o.orderTime,
+                             o.packaging,
+                             o.customerID
+                         }).ToList();
+          
+
+            return Json(filter, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult filterStatusCD()
+        {
+            var dbase = new Models.CangsODEntities10();
+            var filter = dbase.Orders.Where(f => f.orderStatus == "delivered" || f.orderStatus == "cancelled").OrderByDescending(s => s.orderStatus)
+                         .Select(o => new {
+                             o.orderID,
+                             o.orderDate,
+                             o.orderTotal,
+                             o.orderStatus,
+                             o.orderRemarks,
+                             o.location,
+                             o.orderTime,
+                             o.packaging,
+                             o.customerID
+                         }).ToList();
+
+            return Json(filter, JsonRequestBehavior.AllowGet);
         }
 
         //POST METHOD: ADD
@@ -47,7 +80,7 @@ namespace CangsApi.Controllers
         public ActionResult addOrder()
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities7();
+            var ctx = new Models.CangsODEntities10();
             Models.Order order = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Order>(tae);
 
             ctx.Orders.Add(order);
@@ -63,7 +96,7 @@ namespace CangsApi.Controllers
         [System.Web.Mvc.HttpPut]
         public ActionResult delete(int id)
         {
-            var ctx = new Models.CangsODEntities7();
+            var ctx = new Models.CangsODEntities10();
             var order = ctx.Orders.Where(c => c.orderID == id).FirstOrDefault();
 
             if (order != null)
@@ -88,7 +121,7 @@ namespace CangsApi.Controllers
         public ActionResult editOrder(int id = 0)
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities7();
+            var ctx = new Models.CangsODEntities10();
             Models.Order order= ctx.Orders.Find(id);
 
             if (order == null)
@@ -104,7 +137,7 @@ namespace CangsApi.Controllers
         public ActionResult editOrder(Models.Order order)
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities7();
+            var ctx = new Models.CangsODEntities10();
             order = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Order>(tae);
 
             if (ModelState.IsValid)

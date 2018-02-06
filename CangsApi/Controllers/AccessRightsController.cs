@@ -13,7 +13,7 @@ namespace CangsApi.Controllers
         public ActionResult All()
         {
             ViewBag.Title = "AccessRights";
-            var dbase = new Models.CangsODEntities7();
+            var dbase = new Models.CangsODEntities10();
             var allAL = dbase.AccessRights
                        .Select(accRight => new { accRight.rightNum,
                                                  accRight.employeeID,
@@ -27,7 +27,7 @@ namespace CangsApi.Controllers
         //GET RIGHTS
         public ActionResult getRights(int id)
         {
-            var ctx = new Models.CangsODEntities7();
+            var ctx = new Models.CangsODEntities10();
             var rights = ctx.AccessRights.Where(r => r.employeeID == id)
                         .Select(accRight => new { accRight.levelNum}).ToList();
 
@@ -40,7 +40,7 @@ namespace CangsApi.Controllers
         public ActionResult editRights(Models.AccessRight accright)
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities7();
+            var ctx = new Models.CangsODEntities10();
             accright = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.AccessRight>(tae);
 
             var edit = ctx.AccessRights.Where(e => e.employeeID == accright.employeeID && e.levelNum == accright.levelNum).FirstOrDefault();
@@ -66,7 +66,7 @@ namespace CangsApi.Controllers
         public ActionResult addAccessRights()
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities7();
+            var ctx = new Models.CangsODEntities10();
             Models.AccessRight acc_right= Newtonsoft.Json.JsonConvert.DeserializeObject<Models.AccessRight>(tae);
 
             ctx.AccessRights.Add(acc_right);
@@ -97,7 +97,7 @@ namespace CangsApi.Controllers
         public ActionResult deleteAccessRights(int id)
         {
             //var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities7();
+            var ctx = new Models.CangsODEntities10();
             var sel = ctx.AccessRights.Where(e => e.employeeID == id);
 
             var rights = ctx.AccessRights.Where(r => r.employeeID == id).Select(accRight => new { accRight.rightNum }).ToArray();

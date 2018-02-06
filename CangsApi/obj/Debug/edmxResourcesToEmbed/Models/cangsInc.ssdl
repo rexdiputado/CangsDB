@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="CangsODModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="CangsODModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="AccessLevels">
     <Key>
       <PropertyRef Name="levelNum" />
@@ -29,6 +29,20 @@
     <Property Name="verificationCode" Type="varchar" MaxLength="250" Nullable="false" />
     <Property Name="isDeleted" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="CustomerLog">
+    <Key>
+      <PropertyRef Name="logID" />
+    </Key>
+    <Property Name="logID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cusLogNumber" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="cusLogAddress" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="cusLogLastName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="cusLogFirstName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="cusLogMiddleName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="cusLogTime" Type="datetime" Nullable="false" />
+    <Property Name="employeeID" Type="int" Nullable="false" />
+    <Property Name="customerID" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="Employee">
     <Key>
       <PropertyRef Name="employeeID" />
@@ -53,7 +67,7 @@
     <Property Name="isDeleted" Type="int" Nullable="false" />
     <Property Name="picture" Type="varchar(max)" Nullable="false" />
     <Property Name="itemDescription" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="category" Type="varchar" MaxLength="255" />
+    <Property Name="category" Type="varchar" MaxLength="255" Nullable="false" />
   </EntityType>
   <EntityType Name="OrderDetails">
     <Key>
@@ -143,6 +157,34 @@
         <PropertyRef Name="employeeID" />
       </Principal>
       <Dependent Role="AccessRights">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerLog_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CustomerLog" Type="Self.CustomerLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="customerID" />
+      </Principal>
+      <Dependent Role="CustomerLog">
+        <PropertyRef Name="customerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerLog_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CustomerLog" Type="Self.CustomerLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="CustomerLog">
         <PropertyRef Name="employeeID" />
       </Dependent>
     </ReferentialConstraint>
@@ -245,10 +287,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="CangsODModel1StoreContainer">
+  <EntityContainer Name="CangsODModelStoreContainer">
     <EntitySet Name="AccessLevels" EntityType="Self.AccessLevels" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AccessRights" EntityType="Self.AccessRights" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerLog" EntityType="Self.CustomerLog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
@@ -264,6 +307,14 @@
     <AssociationSet Name="FK_AccessRights_Employee" Association="Self.FK_AccessRights_Employee">
       <End Role="Employee" EntitySet="Employee" />
       <End Role="AccessRights" EntitySet="AccessRights" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerLog_Customer" Association="Self.FK_CustomerLog_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="CustomerLog" EntitySet="CustomerLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerLog_Employee" Association="Self.FK_CustomerLog_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="CustomerLog" EntitySet="CustomerLog" />
     </AssociationSet>
     <AssociationSet Name="FK_OrderDetails_Item" Association="Self.FK_OrderDetails_Item">
       <End Role="Item" EntitySet="Item" />

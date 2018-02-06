@@ -18,8 +18,8 @@ namespace CangsApi.Models
         public Employee()
         {
             this.AccessRights = new HashSet<AccessRight>();
+            this.CustomerLogs = new HashSet<CustomerLog>();
             this.UpdateItems = new HashSet<UpdateItem>();
-            this.UpdateOrderStatus = new HashSet<UpdateOrderStatus>();
         }
     
         public int employeeID { get; set; }
@@ -33,8 +33,8 @@ namespace CangsApi.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccessRight> AccessRights { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UpdateItem> UpdateItems { get; set; }
+        public virtual ICollection<CustomerLog> CustomerLogs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UpdateOrderStatus> UpdateOrderStatus { get; set; }
+        public virtual ICollection<UpdateItem> UpdateItems { get; set; }
     }
 }
