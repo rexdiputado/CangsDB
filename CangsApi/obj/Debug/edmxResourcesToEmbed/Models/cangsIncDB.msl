@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CangsODModelStoreContainer" CdmEntityContainer="CangsODEntitiesDB">
+    <EntitySetMapping Name="AccessLevels">
+      <EntityTypeMapping TypeName="CangsODModel.AccessLevel">
+        <MappingFragment StoreEntitySet="AccessLevels">
+          <ScalarProperty Name="levelNum" ColumnName="levelNum" />
+          <ScalarProperty Name="levDescription" ColumnName="levDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AccessRights">
+      <EntityTypeMapping TypeName="CangsODModel.AccessRight">
+        <MappingFragment StoreEntitySet="AccessRights">
+          <ScalarProperty Name="rightNum" ColumnName="rightNum" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="levelNum" ColumnName="levelNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="CangsODModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="customerID" ColumnName="customerID" />
+          <ScalarProperty Name="cusPassword" ColumnName="cusPassword" />
+          <ScalarProperty Name="number" ColumnName="number" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="cusLastName" ColumnName="cusLastName" />
+          <ScalarProperty Name="cusFirstName" ColumnName="cusFirstName" />
+          <ScalarProperty Name="cusMiddleName" ColumnName="cusMiddleName" />
+          <ScalarProperty Name="verificationCode" ColumnName="verificationCode" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerLogs">
+      <EntityTypeMapping TypeName="CangsODModel.CustomerLog">
+        <MappingFragment StoreEntitySet="CustomerLog">
+          <ScalarProperty Name="logID" ColumnName="logID" />
+          <ScalarProperty Name="cusLogNumber" ColumnName="cusLogNumber" />
+          <ScalarProperty Name="cusLogAddress" ColumnName="cusLogAddress" />
+          <ScalarProperty Name="cusLogLastName" ColumnName="cusLogLastName" />
+          <ScalarProperty Name="cusLogFirstName" ColumnName="cusLogFirstName" />
+          <ScalarProperty Name="cusLogMiddleName" ColumnName="cusLogMiddleName" />
+          <ScalarProperty Name="cusLogTime" ColumnName="cusLogTime" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="customerID" ColumnName="customerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="CangsODModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="empPassword" ColumnName="empPassword" />
+          <ScalarProperty Name="empType" ColumnName="empType" />
+          <ScalarProperty Name="empLastName" ColumnName="empLastName" />
+          <ScalarProperty Name="empFirstName" ColumnName="empFirstName" />
+          <ScalarProperty Name="empMiddleName" ColumnName="empMiddleName" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Items">
+      <EntityTypeMapping TypeName="CangsODModel.Item">
+        <MappingFragment StoreEntitySet="Item">
+          <ScalarProperty Name="itemID" ColumnName="itemID" />
+          <ScalarProperty Name="itemName" ColumnName="itemName" />
+          <ScalarProperty Name="itemQuantityStored" ColumnName="itemQuantityStored" />
+          <ScalarProperty Name="itemPrice" ColumnName="itemPrice" />
+          <ScalarProperty Name="purchaseCountAllTime" ColumnName="purchaseCountAllTime" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+          <ScalarProperty Name="picture" ColumnName="picture" />
+          <ScalarProperty Name="itemDescription" ColumnName="itemDescription" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="purchaseCountQuarter" ColumnName="purchaseCountQuarter" />
+          <ScalarProperty Name="purchaseCountMonth" ColumnName="purchaseCountMonth" />
+          <ScalarProperty Name="purchaseCountYear" ColumnName="purchaseCountYear" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderDetails">
+      <EntityTypeMapping TypeName="CangsODModel.OrderDetail">
+        <MappingFragment StoreEntitySet="OrderDetails">
+          <ScalarProperty Name="transID" ColumnName="transID" />
+          <ScalarProperty Name="ordetQuantity" ColumnName="ordetQuantity" />
+          <ScalarProperty Name="ordetPrice" ColumnName="ordetPrice" />
+          <ScalarProperty Name="ordetSubtotal" ColumnName="ordetSubtotal" />
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+          <ScalarProperty Name="itemID" ColumnName="itemID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="CangsODModel.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+          <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+          <ScalarProperty Name="orderTotal" ColumnName="orderTotal" />
+          <ScalarProperty Name="orderStatus" ColumnName="orderStatus" />
+          <ScalarProperty Name="orderRemarks" ColumnName="orderRemarks" />
+          <ScalarProperty Name="location" ColumnName="location" />
+          <ScalarProperty Name="orderTime" ColumnName="orderTime" />
+          <ScalarProperty Name="packaging" ColumnName="packaging" />
+          <ScalarProperty Name="customerID" ColumnName="customerID" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Templates">
+      <EntityTypeMapping TypeName="CangsODModel.Template">
+        <MappingFragment StoreEntitySet="Template">
+          <ScalarProperty Name="templateID" ColumnName="templateID" />
+          <ScalarProperty Name="customerID" ColumnName="customerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TemplateDetails">
+      <EntityTypeMapping TypeName="CangsODModel.TemplateDetail">
+        <MappingFragment StoreEntitySet="TemplateDetails">
+          <ScalarProperty Name="tempDetailID" ColumnName="tempDetailID" />
+          <ScalarProperty Name="temdeQuantity" ColumnName="temdeQuantity" />
+          <ScalarProperty Name="itemID" ColumnName="itemID" />
+          <ScalarProperty Name="templateID" ColumnName="templateID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UpdateItems">
+      <EntityTypeMapping TypeName="CangsODModel.UpdateItem">
+        <MappingFragment StoreEntitySet="UpdateItem">
+          <ScalarProperty Name="updateID" ColumnName="updateID" />
+          <ScalarProperty Name="logDate" ColumnName="logDate" />
+          <ScalarProperty Name="logQuantity" ColumnName="logQuantity" />
+          <ScalarProperty Name="logPrice" ColumnName="logPrice" />
+          <ScalarProperty Name="itemID" ColumnName="itemID" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UpdateOrderStatus1">
+      <EntityTypeMapping TypeName="CangsODModel.UpdateOrderStatus">
+        <MappingFragment StoreEntitySet="UpdateOrderStatus">
+          <ScalarProperty Name="statusID" ColumnName="statusID" />
+          <ScalarProperty Name="orstatStatus" ColumnName="orstatStatus" />
+          <ScalarProperty Name="orstatRemarks" ColumnName="orstatRemarks" />
+          <ScalarProperty Name="orstatDate" ColumnName="orstatDate" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -19,55 +19,133 @@ namespace CangsApi.Controllers
         public ActionResult All()
         {
             ViewBag.Title = "Item";
-            var dbase = new Models.CangsODEntities10();
-            var allAL = dbase.Items.Where(c => c.isDeleted == 0).OrderBy(i => i.itemName)
+            var dbase = new Models.CangsODEntities13();
+            var allAL = dbase.Items.Where(c => c.isDeleted == 0).OrderBy(i => i.category)
                        .Select(item => new { item.itemID,
                                              item.itemName,
                                              item.itemQuantityStored,
                                              item.itemPrice,
-                                             item.purchaseCount,
+                                             item.purchaseCountAllTime,
                                              item.picture,
                                              item.itemDescription,
-                                             item.category
+                                             item.category,
+                                             item.purchaseCountQuarter,
+                                             item.purchaseCountMonth,
+                                             item.purchaseCountYear
                        }).ToList();
 
             return Json(allAL, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult returnItemName(int id)
+        {
+            var dbase = new Models.CangsODEntities13();
+            var itemname = dbase.Items.Where(i => i.itemID == id)
+                           .Select(i => new { i.itemName, i.itemDescription }).ToList();
+
+            return Json(itemname, JsonRequestBehavior.AllowGet);
+        }
+
         //ITEM SORTING BASED ON PURCHASE COUNT
        public ActionResult itemStatistics()
         {
-            var ctx = new Models.CangsODEntities10();
+            var ctx = new Models.CangsODEntities13();
             int limit = 20;
          
             var descending = ctx.Items.Where(i => i.isDeleted == 0)
-                             .OrderByDescending(x => x.purchaseCount)
+                             .OrderByDescending(x => x.purchaseCountAllTime)
                              .Take(limit).Select(d => new { d.itemID,
                                                             d.itemName,
                                                             d.itemQuantityStored,
                                                             d.itemPrice,
-                                                            d.purchaseCount,
+                                                            d.purchaseCountAllTime,
                                                             d.picture,
                                                             d.itemDescription,
-                                                            d.category
-                                                           }).ToList();
+                                                            d.category,
+                             }).ToList();
             
+            return Json(descending, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult itemStatisticsYear()
+        {
+            var ctx = new Models.CangsODEntities13();
+            int limit = 20;
+
+            var descending = ctx.Items.Where(i => i.isDeleted == 0)
+                             .OrderByDescending(x => x.purchaseCountYear)
+                             .Take(limit).Select(d => new {
+                                 d.itemID,
+                                 d.itemName,
+                                 d.itemQuantityStored,
+                                 d.itemPrice,
+                                 d.picture,
+                                 d.itemDescription,
+                                 d.category,
+                                 d.purchaseCountYear
+                             }).ToList();
+
+            return Json(descending, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult itemStatisticsQuarter()
+        {
+            var ctx = new Models.CangsODEntities13();
+            int limit = 20;
+
+            var descending = ctx.Items.Where(i => i.isDeleted == 0)
+                             .OrderByDescending(x => x.purchaseCountQuarter)
+                             .Take(limit).Select(d => new {
+                                 d.itemID,
+                                 d.itemName,
+                                 d.itemQuantityStored,
+                                 d.itemPrice,
+                                 d.picture,
+                                 d.itemDescription,
+                                 d.category,
+                                 d.purchaseCountQuarter
+                             }).ToList();
+
+            return Json(descending, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult itemStatisticsMonth()
+        {
+            var ctx = new Models.CangsODEntities13();
+            int limit = 20;
+
+            var descending = ctx.Items.Where(i => i.isDeleted == 0)
+                             .OrderByDescending(x => x.purchaseCountMonth)
+                             .Take(limit).Select(d => new {
+                                 d.itemID,
+                                 d.itemName,
+                                 d.itemQuantityStored,
+                                 d.itemPrice,
+                                 d.picture,
+                                 d.itemDescription,
+                                 d.category,
+                                 d.purchaseCountMonth
+                             }).ToList();
+
             return Json(descending, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult sortCategory()
         {
-            var ctx = new Models.CangsODEntities10();
+            var ctx = new Models.CangsODEntities13();
             var category = ctx.Items.OrderBy(c => c.category)
                            .Select(cat => new
                            {   cat.itemID,
                                cat.itemName,
                                cat.itemQuantityStored,
                                cat.itemPrice,
-                               cat.purchaseCount,
+                               cat.purchaseCountAllTime,
                                cat.picture,
                                cat.itemDescription,
-                               cat.category
+                               cat.category,
+                               cat.purchaseCountQuarter,
+                               cat.purchaseCountMonth,
+                               cat.purchaseCountYear
                            }).ToList();
 
             return Json(category, JsonRequestBehavior.AllowGet);
@@ -78,7 +156,7 @@ namespace CangsApi.Controllers
         public ActionResult addItem()
         {
             var tae = Request.Form[0];  
-            var ctx = new Models.CangsODEntities10();
+            var ctx = new Models.CangsODEntities13();
             
             Models.Item item = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Item>(tae);
         
@@ -93,7 +171,7 @@ namespace CangsApi.Controllers
 
         public ActionResult restoreItem()
         {
-            var ctx = new Models.CangsODEntities10();
+            var ctx = new Models.CangsODEntities13();
             var restore = ctx.Items.Where(r => r.isDeleted == 1)
                           .Select(item => new
                           {
@@ -101,10 +179,13 @@ namespace CangsApi.Controllers
                               item.itemName,
                               item.itemQuantityStored,
                               item.itemPrice,
-                              item.purchaseCount,
+                              item.purchaseCountAllTime,
                               item.picture,
                               item.itemDescription,
-                              item.category
+                              item.category,
+                              item.purchaseCountQuarter,
+                              item.purchaseCountMonth,
+                              item.purchaseCountYear
                           }).ToList();
 
             return Json(restore, JsonRequestBehavior.AllowGet);
@@ -114,7 +195,7 @@ namespace CangsApi.Controllers
         [System.Web.Mvc.HttpPut]
         public ActionResult deleteItem(int id)
         {
-            var ctx = new Models.CangsODEntities10();
+            var ctx = new Models.CangsODEntities13();
             var item = ctx.Items.Where(i => i.itemID == id).FirstOrDefault();
 
             if (item != null)
@@ -138,7 +219,7 @@ namespace CangsApi.Controllers
         public ActionResult editOrder(int id = 0)
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities10();
+            var ctx = new Models.CangsODEntities13();
             Models.Item item= ctx.Items.Find(id);
 
             if (item == null)
@@ -154,7 +235,7 @@ namespace CangsApi.Controllers
         public ActionResult editItem(Models.Item item)
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities10();
+            var ctx = new Models.CangsODEntities13();
             item = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Item>(tae);
 
             if (ModelState.IsValid)

@@ -20,7 +20,10 @@ namespace CangsApi.Models
         public string ordetSubtotal { get; set; }
         public int orderID { get; set; }
         public int itemID { get; set; }
+        public string itemName { get; set; }
+        public string itemDescription { get; set; }
     
         public virtual Item Item { get; set; }
+        public virtual Order Order { get; set; }
     }
 }

@@ -201,55 +201,55 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccessLevel.cs">
-      <DependentUpon>cangsInc.tt</DependentUpon>
+      <DependentUpon>cangsIDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccessRight.cs">
-      <DependentUpon>cangsInc.tt</DependentUpon>
+      <DependentUpon>cangsIDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\cangsInc.Context.cs">
+    <Compile Include="Models\cangsIDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>cangsInc.Context.tt</DependentUpon>
+      <DependentUpon>cangsIDB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\cangsInc.cs">
+    <Compile Include="Models\cangsIDB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>cangsInc.tt</DependentUpon>
+      <DependentUpon>cangsIDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\cangsInc.Designer.cs">
+    <Compile Include="Models\cangsIDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>cangsInc.edmx</DependentUpon>
+      <DependentUpon>cangsIDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Customer.cs">
-      <DependentUpon>cangsInc.tt</DependentUpon>
+      <DependentUpon>cangsIDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CustomerLog.cs">
-      <DependentUpon>cangsInc.tt</DependentUpon>
+      <DependentUpon>cangsIDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Employee.cs">
-      <DependentUpon>cangsInc.tt</DependentUpon>
+      <DependentUpon>cangsIDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Item.cs">
-      <DependentUpon>cangsInc.tt</DependentUpon>
+      <DependentUpon>cangsIDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs">
-      <DependentUpon>cangsInc.tt</DependentUpon>
+      <DependentUpon>cangsIDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OrderDetail.cs">
-      <DependentUpon>cangsInc.tt</DependentUpon>
+      <DependentUpon>cangsIDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Template.cs">
-      <DependentUpon>cangsInc.tt</DependentUpon>
+      <DependentUpon>cangsIDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TemplateDetail.cs">
-      <DependentUpon>cangsInc.tt</DependentUpon>
+      <DependentUpon>cangsIDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UpdateItem.cs">
-      <DependentUpon>cangsInc.tt</DependentUpon>
+      <DependentUpon>cangsIDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UpdateOrderStatus.cs">
-      <DependentUpon>cangsInc.tt</DependentUpon>
+      <DependentUpon>cangsIDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -260,15 +260,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\cangsInc.Context.tt">
+    <Content Include="Models\cangsIDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>cangsInc.edmx</DependentUpon>
-      <LastGenOutput>cangsInc.Context.cs</LastGenOutput>
+      <DependentUpon>cangsIDB.edmx</DependentUpon>
+      <LastGenOutput>cangsIDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\cangsInc.tt">
+    <Content Include="Models\cangsIDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>cangsInc.edmx</DependentUpon>
-      <LastGenOutput>cangsInc.cs</LastGenOutput>
+      <DependentUpon>cangsIDB.edmx</DependentUpon>
+      <LastGenOutput>cangsIDB.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -295,12 +295,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <EntityDeploy Include="Models\cangsInc.edmx">
+    <EntityDeploy Include="Models\cangsIDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>cangsInc.Designer.cs</LastGenOutput>
+      <LastGenOutput>cangsIDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\cangsInc.edmx.diagram">
-      <DependentUpon>cangsInc.edmx</DependentUpon>
+    <Content Include="Models\cangsIDB.edmx.diagram">
+      <DependentUpon>cangsIDB.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

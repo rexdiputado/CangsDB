@@ -12,7 +12,7 @@ namespace CangsApi.Controllers
         public ActionResult All()
         {
             ViewBag.Title = "UpdateItem";
-            var dbase = new Models.CangsODEntities10();
+            var dbase = new Models.CangsODEntities13();
             var allAL = dbase.UpdateItems
                        .Select(log => new { log.updateID,
                                             log.logDate,
@@ -30,7 +30,7 @@ namespace CangsApi.Controllers
         public ActionResult addUpdateItem()
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities10();
+            var ctx = new Models.CangsODEntities13();
             Models.UpdateItem update_item = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.UpdateItem>(tae);
 
             ctx.UpdateItems.Add(update_item);

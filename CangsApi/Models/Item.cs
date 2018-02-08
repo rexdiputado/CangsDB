@@ -26,11 +26,14 @@ namespace CangsApi.Models
         public string itemName { get; set; }
         public int itemQuantityStored { get; set; }
         public decimal itemPrice { get; set; }
-        public int purchaseCount { get; set; }
+        public int purchaseCountAllTime { get; set; }
         public int isDeleted { get; set; }
         public string picture { get; set; }
         public string itemDescription { get; set; }
         public string category { get; set; }
+        public int purchaseCountQuarter { get; set; }
+        public int purchaseCountMonth { get; set; }
+        public int purchaseCountYear { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }

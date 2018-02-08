@@ -68,11 +68,14 @@
           <Property Name="itemName" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="itemQuantityStored" Type="int" Nullable="false" />
           <Property Name="itemPrice" Type="smallmoney" Nullable="false" />
-          <Property Name="purchaseCount" Type="int" Nullable="false" />
+          <Property Name="purchaseCountAllTime" Type="int" Nullable="false" />
           <Property Name="isDeleted" Type="int" Nullable="false" />
           <Property Name="picture" Type="varchar(max)" Nullable="false" />
           <Property Name="itemDescription" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="category" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="purchaseCountQuarter" Type="int" Nullable="false" />
+          <Property Name="purchaseCountMonth" Type="int" Nullable="false" />
+          <Property Name="purchaseCountYear" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
@@ -84,6 +87,8 @@
           <Property Name="ordetSubtotal" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="orderID" Type="int" Nullable="false" />
           <Property Name="itemID" Type="int" Nullable="false" />
+          <Property Name="itemName" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="itemDescription" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -99,6 +104,7 @@
           <Property Name="packaging" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="customerID" Type="int" Nullable="false" />
           <Property Name="isDeleted" Type="int" Nullable="false" />
+          <Property Name="cashTendered" Type="smallmoney" Nullable="false" />
         </EntityType>
         <EntityType Name="Template">
           <Key>
@@ -205,6 +211,20 @@
             </Principal>
             <Dependent Role="OrderDetails">
               <PropertyRef Name="itemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="orderID" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="orderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -325,6 +345,10 @@
             <End Role="Item" EntitySet="Item" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Orders" Association="Self.FK_OrderDetails_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_Template_Customer" Association="Self.FK_Template_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Template" EntitySet="Template" />
@@ -428,11 +452,14 @@
           <Property Name="itemName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="itemQuantityStored" Type="Int32" Nullable="false" />
           <Property Name="itemPrice" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
-          <Property Name="purchaseCount" Type="Int32" Nullable="false" />
+          <Property Name="purchaseCountAllTime" Type="Int32" Nullable="false" />
           <Property Name="isDeleted" Type="Int32" Nullable="false" />
           <Property Name="picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="itemDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="category" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="purchaseCountQuarter" Type="Int32" Nullable="false" />
+          <Property Name="purchaseCountMonth" Type="Int32" Nullable="false" />
+          <Property Name="purchaseCountYear" Type="Int32" Nullable="false" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Item" FromRole="Item" ToRole="OrderDetails" />
           <NavigationProperty Name="TemplateDetails" Relationship="Self.FK_TemplateDetails_Item" FromRole="Item" ToRole="TemplateDetails" />
           <NavigationProperty Name="UpdateItems" Relationship="Self.FK_UpdateItem_Item" FromRole="Item" ToRole="UpdateItem" />
@@ -447,7 +474,10 @@
           <Property Name="ordetSubtotal" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="orderID" Type="Int32" Nullable="false" />
           <Property Name="itemID" Type="Int32" Nullable="false" />
+          <Property Name="itemName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="itemDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Item" Relationship="Self.FK_OrderDetails_Item" FromRole="OrderDetails" ToRole="Item" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_OrderDetails_Orders" FromRole="OrderDetails" ToRole="Orders" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -463,6 +493,8 @@
           <Property Name="packaging" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="customerID" Type="Int32" Nullable="false" />
           <Property Name="isDeleted" Type="Int32" Nullable="false" />
+          <Property Name="cashTendered" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Orders" FromRole="Orders" ToRole="OrderDetails" />
           <NavigationProperty Name="UpdateOrderStatus" Relationship="Self.FK_UpdateOrderStatus_Orders" FromRole="Orders" ToRole="UpdateOrderStatus" />
         </EntityType>
         <EntityType Name="Template">
@@ -636,6 +668,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OrderDetails_Orders">
+          <End Role="Orders" Type="Self.Order" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="orderID" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="orderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UpdateOrderStatus_Orders">
           <End Role="Orders" Type="Self.Order" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -664,7 +710,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CangsODEntities10" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CangsODEntities13" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AccessLevels" EntityType="Self.AccessLevel" />
           <EntitySet Name="AccessRights" EntityType="Self.AccessRight" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
@@ -713,6 +759,10 @@
             <End Role="Item" EntitySet="Items" />
             <End Role="UpdateItem" EntitySet="UpdateItems" />
           </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Orders" Association="Self.FK_OrderDetails_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_UpdateOrderStatus_Orders" Association="Self.FK_UpdateOrderStatus_Orders">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="UpdateOrderStatus" EntitySet="UpdateOrderStatus1" />
@@ -727,7 +777,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CangsODModelStoreContainer" CdmEntityContainer="CangsODEntities10">
+        <EntityContainerMapping StorageEntityContainer="CangsODModelStoreContainer" CdmEntityContainer="CangsODEntities13">
           <EntitySetMapping Name="AccessLevels">
             <EntityTypeMapping TypeName="CangsODModel.AccessLevel">
               <MappingFragment StoreEntitySet="AccessLevels">
@@ -795,11 +845,14 @@
                 <ScalarProperty Name="itemName" ColumnName="itemName" />
                 <ScalarProperty Name="itemQuantityStored" ColumnName="itemQuantityStored" />
                 <ScalarProperty Name="itemPrice" ColumnName="itemPrice" />
-                <ScalarProperty Name="purchaseCount" ColumnName="purchaseCount" />
+                <ScalarProperty Name="purchaseCountAllTime" ColumnName="purchaseCountAllTime" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="picture" ColumnName="picture" />
                 <ScalarProperty Name="itemDescription" ColumnName="itemDescription" />
                 <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="purchaseCountQuarter" ColumnName="purchaseCountQuarter" />
+                <ScalarProperty Name="purchaseCountMonth" ColumnName="purchaseCountMonth" />
+                <ScalarProperty Name="purchaseCountYear" ColumnName="purchaseCountYear" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -812,6 +865,8 @@
                 <ScalarProperty Name="ordetSubtotal" ColumnName="ordetSubtotal" />
                 <ScalarProperty Name="orderID" ColumnName="orderID" />
                 <ScalarProperty Name="itemID" ColumnName="itemID" />
+                <ScalarProperty Name="itemName" ColumnName="itemName" />
+                <ScalarProperty Name="itemDescription" ColumnName="itemDescription" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -828,6 +883,7 @@
                 <ScalarProperty Name="packaging" ColumnName="packaging" />
                 <ScalarProperty Name="customerID" ColumnName="customerID" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="cashTendered" ColumnName="cashTendered" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

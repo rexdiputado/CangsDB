@@ -13,10 +13,10 @@ namespace CangsApi.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CangsODEntities10 : DbContext
+    public partial class CangsODEntities13 : DbContext
     {
-        public CangsODEntities10()
-            : base("name=CangsODEntities10")
+        public CangsODEntities13()
+            : base("name=CangsODEntities13")
         {
         }
     

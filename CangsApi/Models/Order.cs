@@ -17,6 +17,7 @@ namespace CangsApi.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()
         {
+            this.OrderDetails = new HashSet<OrderDetail>();
             this.UpdateOrderStatus = new HashSet<UpdateOrderStatus>();
         }
     
@@ -30,7 +31,10 @@ namespace CangsApi.Models
         public string packaging { get; set; }
         public int customerID { get; set; }
         public int isDeleted { get; set; }
+        public decimal cashTendered { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UpdateOrderStatus> UpdateOrderStatus { get; set; }
     }

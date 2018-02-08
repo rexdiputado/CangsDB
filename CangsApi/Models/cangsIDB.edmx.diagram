@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1c0acd4f0a18456ea6426f2f3536f05a" Name="Diagram1">
+        <EntityTypeShape EntityType="CangsODModel.AccessLevel" Width="1.5" PointX="0.75" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CangsODModel.AccessRight" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CangsODModel.Customer" Width="1.5" PointX="1.5" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="CangsODModel.CustomerLog" Width="1.5" PointX="5.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CangsODModel.Employee" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CangsODModel.Item" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CangsODModel.OrderDetail" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="CangsODModel.Order" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CangsODModel.Template" Width="1.5" PointX="3.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CangsODModel.TemplateDetail" Width="1.5" PointX="6" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CangsODModel.UpdateItem" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CangsODModel.UpdateOrderStatus" Width="1.5" PointX="3" PointY="19.625" IsExpanded="true" />
+        <AssociationConnector Association="CangsODModel.FK_AccessRights_AccessLevels" ManuallyRouted="false" />
+        <AssociationConnector Association="CangsODModel.FK_AccessRights_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="CangsODModel.FK_CustomerLog_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="CangsODModel.FK_Template_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="CangsODModel.FK_CustomerLog_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="CangsODModel.FK_UpdateItem_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="CangsODModel.FK_OrderDetails_Item" ManuallyRouted="false" />
+        <AssociationConnector Association="CangsODModel.FK_TemplateDetails_Item" ManuallyRouted="false" />
+        <AssociationConnector Association="CangsODModel.FK_UpdateItem_Item" ManuallyRouted="false" />
+        <AssociationConnector Association="CangsODModel.FK_OrderDetails_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="CangsODModel.FK_UpdateOrderStatus_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="CangsODModel.FK_TemplateDetails_Template" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

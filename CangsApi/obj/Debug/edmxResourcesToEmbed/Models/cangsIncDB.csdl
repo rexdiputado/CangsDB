@@ -1,0 +1,373 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CangsODModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AccessLevel">
+    <Key>
+      <PropertyRef Name="levelNum" />
+    </Key>
+    <Property Name="levelNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="levDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="AccessRights" Relationship="Self.FK_AccessRights_AccessLevels" FromRole="AccessLevels" ToRole="AccessRights" />
+  </EntityType>
+  <EntityType Name="AccessRight">
+    <Key>
+      <PropertyRef Name="rightNum" />
+    </Key>
+    <Property Name="rightNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="employeeID" Type="Int32" Nullable="false" />
+    <Property Name="levelNum" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AccessLevel" Relationship="Self.FK_AccessRights_AccessLevels" FromRole="AccessRights" ToRole="AccessLevels" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_AccessRights_Employee" FromRole="AccessRights" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="customerID" />
+    </Key>
+    <Property Name="customerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cusPassword" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="number" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cusLastName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cusFirstName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cusMiddleName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="verificationCode" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="isDeleted" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CustomerLogs" Relationship="Self.FK_CustomerLog_Customer" FromRole="Customer" ToRole="CustomerLog" />
+    <NavigationProperty Name="Templates" Relationship="Self.FK_Template_Customer" FromRole="Customer" ToRole="Template" />
+  </EntityType>
+  <EntityType Name="CustomerLog">
+    <Key>
+      <PropertyRef Name="logID" />
+    </Key>
+    <Property Name="logID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cusLogNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cusLogAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cusLogLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cusLogFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cusLogMiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cusLogTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="employeeID" Type="Int32" Nullable="false" />
+    <Property Name="customerID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_CustomerLog_Customer" FromRole="CustomerLog" ToRole="Customer" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_CustomerLog_Employee" FromRole="CustomerLog" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="employeeID" />
+    </Key>
+    <Property Name="employeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="empPassword" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="empType" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="empLastName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="empFirstName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="empMiddleName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="isDeleted" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AccessRights" Relationship="Self.FK_AccessRights_Employee" FromRole="Employee" ToRole="AccessRights" />
+    <NavigationProperty Name="CustomerLogs" Relationship="Self.FK_CustomerLog_Employee" FromRole="Employee" ToRole="CustomerLog" />
+    <NavigationProperty Name="UpdateItems" Relationship="Self.FK_UpdateItem_Employee" FromRole="Employee" ToRole="UpdateItem" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="itemID" />
+    </Key>
+    <Property Name="itemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="itemName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="itemQuantityStored" Type="Int32" Nullable="false" />
+    <Property Name="itemPrice" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
+    <Property Name="purchaseCountAllTime" Type="Int32" Nullable="false" />
+    <Property Name="isDeleted" Type="Int32" Nullable="false" />
+    <Property Name="picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="itemDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="category" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="purchaseCountQuarter" Type="Int32" Nullable="false" />
+    <Property Name="purchaseCountMonth" Type="Int32" Nullable="false" />
+    <Property Name="purchaseCountYear" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Item" FromRole="Item" ToRole="OrderDetails" />
+    <NavigationProperty Name="TemplateDetails" Relationship="Self.FK_TemplateDetails_Item" FromRole="Item" ToRole="TemplateDetails" />
+    <NavigationProperty Name="UpdateItems" Relationship="Self.FK_UpdateItem_Item" FromRole="Item" ToRole="UpdateItem" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="transID" />
+    </Key>
+    <Property Name="transID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ordetQuantity" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ordetPrice" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ordetSubtotal" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="orderID" Type="Int32" Nullable="false" />
+    <Property Name="itemID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_OrderDetails_Item" FromRole="OrderDetails" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="orderID" />
+    </Key>
+    <Property Name="orderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="orderDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="orderTotal" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="orderStatus" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="orderRemarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="location" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="orderTime" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="packaging" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="customerID" Type="Int32" Nullable="false" />
+    <Property Name="isDeleted" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="UpdateOrderStatus" Relationship="Self.FK_UpdateOrderStatus_Orders" FromRole="Orders" ToRole="UpdateOrderStatus" />
+  </EntityType>
+  <EntityType Name="Template">
+    <Key>
+      <PropertyRef Name="templateID" />
+    </Key>
+    <Property Name="templateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="customerID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Template_Customer" FromRole="Template" ToRole="Customer" />
+    <NavigationProperty Name="TemplateDetails" Relationship="Self.FK_TemplateDetails_Template" FromRole="Template" ToRole="TemplateDetails" />
+  </EntityType>
+  <EntityType Name="TemplateDetail">
+    <Key>
+      <PropertyRef Name="tempDetailID" />
+    </Key>
+    <Property Name="tempDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="temdeQuantity" Type="Int32" Nullable="false" />
+    <Property Name="itemID" Type="Int32" Nullable="false" />
+    <Property Name="templateID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_TemplateDetails_Item" FromRole="TemplateDetails" ToRole="Item" />
+    <NavigationProperty Name="Template" Relationship="Self.FK_TemplateDetails_Template" FromRole="TemplateDetails" ToRole="Template" />
+  </EntityType>
+  <EntityType Name="UpdateItem">
+    <Key>
+      <PropertyRef Name="updateID" />
+    </Key>
+    <Property Name="updateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="logDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="logQuantity" Type="Int32" Nullable="false" />
+    <Property Name="logPrice" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
+    <Property Name="itemID" Type="Int32" Nullable="false" />
+    <Property Name="employeeID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_UpdateItem_Employee" FromRole="UpdateItem" ToRole="Employee" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_UpdateItem_Item" FromRole="UpdateItem" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="UpdateOrderStatus">
+    <Key>
+      <PropertyRef Name="statusID" />
+    </Key>
+    <Property Name="statusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="orstatStatus" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="orstatRemarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="orstatDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="employeeID" Type="Int32" Nullable="false" />
+    <Property Name="orderID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_UpdateOrderStatus_Orders" FromRole="UpdateOrderStatus" ToRole="Orders" />
+  </EntityType>
+  <Association Name="FK_AccessRights_AccessLevels">
+    <End Role="AccessLevels" Type="Self.AccessLevel" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AccessRights" Type="Self.AccessRight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AccessLevels">
+        <PropertyRef Name="levelNum" />
+      </Principal>
+      <Dependent Role="AccessRights">
+        <PropertyRef Name="levelNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AccessRights_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AccessRights" Type="Self.AccessRight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="AccessRights">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerLog_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CustomerLog" Type="Self.CustomerLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="customerID" />
+      </Principal>
+      <Dependent Role="CustomerLog">
+        <PropertyRef Name="customerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Template_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Template" Type="Self.Template" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="customerID" />
+      </Principal>
+      <Dependent Role="Template">
+        <PropertyRef Name="customerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerLog_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CustomerLog" Type="Self.CustomerLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="CustomerLog">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UpdateItem_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UpdateItem" Type="Self.UpdateItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="UpdateItem">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetails_Item">
+    <End Role="Item" Type="Self.Item" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="itemID" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="itemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TemplateDetails_Item">
+    <End Role="Item" Type="Self.Item" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TemplateDetails" Type="Self.TemplateDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="itemID" />
+      </Principal>
+      <Dependent Role="TemplateDetails">
+        <PropertyRef Name="itemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UpdateItem_Item">
+    <End Role="Item" Type="Self.Item" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UpdateItem" Type="Self.UpdateItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="itemID" />
+      </Principal>
+      <Dependent Role="UpdateItem">
+        <PropertyRef Name="itemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UpdateOrderStatus_Orders">
+    <End Role="Orders" Type="Self.Order" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UpdateOrderStatus" Type="CangsODModel.UpdateOrderStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="orderID" />
+      </Principal>
+      <Dependent Role="UpdateOrderStatus">
+        <PropertyRef Name="orderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TemplateDetails_Template">
+    <End Role="Template" Type="Self.Template" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TemplateDetails" Type="Self.TemplateDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Template">
+        <PropertyRef Name="templateID" />
+      </Principal>
+      <Dependent Role="TemplateDetails">
+        <PropertyRef Name="templateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CangsODEntitiesDB" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AccessLevels" EntityType="Self.AccessLevel" />
+    <EntitySet Name="AccessRights" EntityType="Self.AccessRight" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="CustomerLogs" EntityType="Self.CustomerLog" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="Items" EntityType="Self.Item" />
+    <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Templates" EntityType="Self.Template" />
+    <EntitySet Name="TemplateDetails" EntityType="Self.TemplateDetail" />
+    <EntitySet Name="UpdateItems" EntityType="Self.UpdateItem" />
+    <EntitySet Name="UpdateOrderStatus1" EntityType="CangsODModel.UpdateOrderStatus" />
+    <AssociationSet Name="FK_AccessRights_AccessLevels" Association="Self.FK_AccessRights_AccessLevels">
+      <End Role="AccessLevels" EntitySet="AccessLevels" />
+      <End Role="AccessRights" EntitySet="AccessRights" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AccessRights_Employee" Association="Self.FK_AccessRights_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="AccessRights" EntitySet="AccessRights" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerLog_Customer" Association="Self.FK_CustomerLog_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="CustomerLog" EntitySet="CustomerLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Template_Customer" Association="Self.FK_Template_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Template" EntitySet="Templates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerLog_Employee" Association="Self.FK_CustomerLog_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="CustomerLog" EntitySet="CustomerLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UpdateItem_Employee" Association="Self.FK_UpdateItem_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="UpdateItem" EntitySet="UpdateItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetails_Item" Association="Self.FK_OrderDetails_Item">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TemplateDetails_Item" Association="Self.FK_TemplateDetails_Item">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="TemplateDetails" EntitySet="TemplateDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UpdateItem_Item" Association="Self.FK_UpdateItem_Item">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="UpdateItem" EntitySet="UpdateItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UpdateOrderStatus_Orders" Association="Self.FK_UpdateOrderStatus_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="UpdateOrderStatus" EntitySet="UpdateOrderStatus1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TemplateDetails_Template" Association="Self.FK_TemplateDetails_Template">
+      <End Role="Template" EntitySet="Templates" />
+      <End Role="TemplateDetails" EntitySet="TemplateDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

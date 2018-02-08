@@ -18,7 +18,7 @@ namespace CangsApi.Controllers
         public ActionResult All()
         {
             ViewBag.Title = "customer";
-            var dbase = new Models.CangsODEntities10();
+            var dbase = new Models.CangsODEntities13();
             var allAL = dbase.Customers.Where(c => c.isDeleted == 0).OrderBy(u => u.cusLastName)
                        .Select(cus => new { cus.customerID,
                                             cus.cusPassword,
@@ -35,7 +35,7 @@ namespace CangsApi.Controllers
 
         public ActionResult getCustomer(int id)
         {
-            var ctx = new Models.CangsODEntities10();
+            var ctx = new Models.CangsODEntities13();
             var customer = ctx.Customers.Where(r => r.customerID == id)
                         .Select(c => new {
                             c.customerID,
@@ -56,7 +56,7 @@ namespace CangsApi.Controllers
         public ActionResult addCustomer()
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities10();
+            var ctx = new Models.CangsODEntities13();
             Models.Customer customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Customer>(tae);
 
             ctx.Customers.Add(customer);
@@ -71,7 +71,7 @@ namespace CangsApi.Controllers
         [System.Web.Mvc.HttpPut]
         public ActionResult delete(int id)
         {
-            var ctx = new Models.CangsODEntities10();
+            var ctx = new Models.CangsODEntities13();
             var customer = ctx.Customers.Where(c => c.customerID== id).FirstOrDefault();
 
             if (customer != null)
@@ -96,7 +96,7 @@ namespace CangsApi.Controllers
         public ActionResult editCustomer(int id = 0)
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities10();
+            var ctx = new Models.CangsODEntities13();
             Models.Customer customer = ctx.Customers.Find(id);
 
             if(customer == null)
@@ -112,7 +112,7 @@ namespace CangsApi.Controllers
         public ActionResult editCustomer(Models.Customer customer)
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities10();
+            var ctx = new Models.CangsODEntities13();
             customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Customer>(tae);
 
             if(ModelState.IsValid)

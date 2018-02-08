@@ -12,7 +12,7 @@ namespace CangsApi.Controllers
         public ActionResult All()
         {
             ViewBag.Title = "template";
-            var dbase = new Models.CangsODEntities10();
+            var dbase = new Models.CangsODEntities13();
             var allAL = dbase
                        .Templates
                        .Select(temp => new { temp.templateID,
@@ -26,7 +26,7 @@ namespace CangsApi.Controllers
         public ActionResult addTemplate()
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities10();
+            var ctx = new Models.CangsODEntities13();
             Models.Template template = Newtonsoft.Json.JsonConvert.DeserializeObject < Models.Template>(tae);
 
             ctx.Templates.Add(template);
