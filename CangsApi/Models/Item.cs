@@ -21,7 +21,7 @@ namespace CangsApi.Models
             this.TemplateDetails = new HashSet<TemplateDetail>();
             this.UpdateItems = new HashSet<UpdateItem>();
         }
-    
+      
         public int itemID { get; set; }
         public string itemName { get; set; }
         public int itemQuantityStored { get; set; }

@@ -32,5 +32,14 @@ namespace CangsApi.Controllers
 
             return Content(temp_det.tempDetailID.ToString());
         }
+
+        public ActionResult returnTemplateID(int id)
+        {
+            var dbase = new Models.CangsODEntities13();
+            var tempid = dbase.TemplateDetails.Where(t => t.templateID == id)
+                          .Select(t => new { t.tempDetailID, t.temdeQuantity, t.Item, t.templateID }).ToList();
+
+            return Json(tempid, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -28,26 +28,34 @@ namespace CangsApi.Controllers
             return Json(allAL, JsonRequestBehavior.AllowGet);
         }
 
-
+       
         [System.Web.Mvc.HttpPost]
         public ActionResult addOrderDetails()
         {
             var tae = Request.Form[0];
             var ctx = new Models.CangsODEntities13();
 
-            var item = new Models.Item();
-            item.purchaseCountAllTime += 1;
-            item.purchaseCountQuarter += 1;
-            item.purchaseCountMonth += 1;
-            item.purchaseCountYear += 1;
-            item.itemQuantityStored -= 1;
-
             Models.OrderDetail order_detail = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.OrderDetail>(tae);
+            var id = order_detail.itemID;
+           // var id1 = order_detail.itemID;
+            var id2 = order_detail.orderID;
+            //var count = this.updatePurchaseCount(id);
+            //var quantity = new ItemController().getQty(id);
+            
+            Response.StatusCode = 200; //try catch if errpr return errpr stautis code
             ctx.OrderDetails.Add(order_detail);
             ctx.SaveChanges();
+            var purchaseCount = new ItemController().updatePurchaseCount(id, id2);
 
-            Response.StatusCode = 200; //try catch if errpr return errpr stautis code
-            
+
+            /* var item = new Models.Item();
+             item.purchaseCountAllTime += 1;
+             item.purchaseCountQuarter += 1;
+             item.purchaseCountMonth += 1;
+             item.purchaseCountYear += 1;
+             item.itemQuantityStored -= 1;
+             ctx.SaveChanges();*/
+
             return Content(" ");
         }
 

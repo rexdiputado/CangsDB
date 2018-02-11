@@ -58,6 +58,27 @@ namespace CangsApi.Controllers
             return Json(filter, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult getHistory(int id)
+        {
+            var dbase = new Models.CangsODEntities13();
+            var getcustomer = dbase.Orders.Where(g => g.customerID == id)
+                              .Select(c => new
+                              {
+                                  c.orderID,
+                                  c.orderDate,
+                                  c.orderTotal,
+                                  c.orderStatus,
+                                  c.orderRemarks,
+                                  c.location,
+                                  c.orderTime,
+                                  c.packaging,
+                                  c.customerID,
+                                  c.cashTendered
+                              }).ToList();
+
+            return Json(getcustomer, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult filterStatusCD()
         {
             var dbase = new Models.CangsODEntities13();
@@ -89,7 +110,7 @@ namespace CangsApi.Controllers
             ctx.Orders.Add(order);
             ctx.SaveChanges();
 
-            Response.StatusCode = 200; //try catch if errpr return errpr stautis code
+            //Response.StatusCode = 200; //try catch if errpr return errpr stautis code
 
             return Content(order.orderID.ToString());
         }

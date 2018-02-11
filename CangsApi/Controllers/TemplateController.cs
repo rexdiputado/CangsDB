@@ -22,6 +22,15 @@ namespace CangsApi.Controllers
             return Json(allAL, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult returnCustomerID(int id)
+        {
+            var dbase = new Models.CangsODEntities13();
+            var returnID = dbase.Templates.Where(t => t.customerID == id)
+                           .Select(t => new { t.customerID, t.templateID }).ToList();
+
+            return Json(returnID, JsonRequestBehavior.AllowGet);
+        }
+
         [System.Web.Mvc.HttpPost]
         public ActionResult addTemplate()
         {

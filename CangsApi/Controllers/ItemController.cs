@@ -37,6 +37,61 @@ namespace CangsApi.Controllers
             return Json(allAL, JsonRequestBehavior.AllowGet);
         }
 
+
+
+        //item.purchaseCountAllTime += 1; 
+
+
+
+        /* if (item == find)
+         {
+             item.purchaseCountAllTime += 1;
+             item.purchaseCountMonth += 1;
+             item.purchaseCountQuarter+= 1;
+             item.purchaseCountYear += 1;
+
+             dbase.SaveChanges();
+         }*/
+      /*  public ActionResult getQty(int id)
+        {
+            var dbase = new Models.CangsODEntities13();
+            var q = dbase.OrderDetails.Where(i => i.itemID == id).FirstOrDefault();
+
+            if(q != null)
+            {
+                Int32.Parse(q.ordetQuantity);
+            }
+
+            return Content("");
+        }*/
+        
+        public ActionResult updatePurchaseCount(int id, int id2)
+        {
+            var dbase = new Models.CangsODEntities13();
+            var find = dbase.Items.Where(i => i.itemID == id).FirstOrDefault();
+            var qty = dbase.OrderDetails.Where(i => i.orderID == id2 && i.itemID == id).FirstOrDefault();
+
+         
+               
+                if ((find !=null && qty != null ))
+                {
+                    find.purchaseCountAllTime += Int32.Parse(qty.ordetQuantity);
+                    find.purchaseCountMonth += Int32.Parse(qty.ordetQuantity);
+                    find.purchaseCountQuarter += Int32.Parse(qty.ordetQuantity);
+                    find.purchaseCountYear += Int32.Parse(qty.ordetQuantity);
+                    dbase.SaveChanges();
+
+                    return Content("success");
+                }
+                else
+                {
+                    return Content("FUCK");
+                }
+            //var qty = this.getOrderQty();
+           
+
+        }
+
         public ActionResult returnItemName(int id)
         {
             var dbase = new Models.CangsODEntities13();
@@ -46,8 +101,28 @@ namespace CangsApi.Controllers
             return Json(itemname, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult returnItem(int id)
+        {
+            var dbase = new Models.CangsODEntities13();
+            var itemid = dbase.Items.Where(i => i.itemID == id)
+                           .Select(item => new { item.itemID,
+                                              item.itemName,
+                                              item.itemQuantityStored,
+                                              item.itemPrice,
+                                              item.purchaseCountAllTime,
+                                              item.picture,
+                                              item.itemDescription,
+                                              item.category,
+                                              item.purchaseCountQuarter,
+                                              item.purchaseCountMonth,
+                                              item.purchaseCountYear
+                           }).ToList();
+
+            return Json(itemid, JsonRequestBehavior.AllowGet);
+        }
+
         //ITEM SORTING BASED ON PURCHASE COUNT
-       public ActionResult itemStatistics()
+        public ActionResult itemStatistics()
         {
             var ctx = new Models.CangsODEntities13();
             int limit = 20;
