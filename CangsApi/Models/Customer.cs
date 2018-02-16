@@ -18,7 +18,6 @@ namespace CangsApi.Models
         public Customer()
         {
             this.CustomerLogs = new HashSet<CustomerLog>();
-            this.Templates = new HashSet<Template>();
         }
     
         public int customerID { get; set; }
@@ -33,7 +32,5 @@ namespace CangsApi.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerLog> CustomerLogs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Template> Templates { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace CangsApi.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "AccessLevels";
-            var dbase = new Models.CangsODEntities13();
+            var dbase = new Models.CangsODEntities14();
             var allAL = dbase.AccessLevels
                         .Select(accLevels => new { accLevels.levelNum,
                                                   accLevels.levDescription })
@@ -27,7 +27,7 @@ namespace CangsApi.Controllers
         public ActionResult addAccessLevels()
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities13();
+            var ctx = new Models.CangsODEntities14();
             Models.AccessLevel acc_lev = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.AccessLevel>(tae);
 
             ctx.AccessLevels.Add(acc_lev);

@@ -112,6 +112,7 @@
           </Key>
           <Property Name="templateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="customerID" Type="int" Nullable="false" />
+          <Property Name="templateName" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
         <EntityType Name="TemplateDetails">
           <Key>
@@ -228,20 +229,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Template_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Template" Type="Self.Template" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="customerID" />
-            </Principal>
-            <Dependent Role="Template">
-              <PropertyRef Name="customerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TemplateDetails_Item">
           <End Role="Item" Type="Self.Item" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -349,10 +336,6 @@
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_Template_Customer" Association="Self.FK_Template_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="Template" EntitySet="Template" />
-          </AssociationSet>
           <AssociationSet Name="FK_TemplateDetails_Item" Association="Self.FK_TemplateDetails_Item">
             <End Role="Item" EntitySet="Item" />
             <End Role="TemplateDetails" EntitySet="TemplateDetails" />
@@ -411,7 +394,6 @@
           <Property Name="verificationCode" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="isDeleted" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CustomerLogs" Relationship="Self.FK_CustomerLog_Customer" FromRole="Customer" ToRole="CustomerLog" />
-          <NavigationProperty Name="Templates" Relationship="Self.FK_Template_Customer" FromRole="Customer" ToRole="Template" />
         </EntityType>
         <EntityType Name="CustomerLog">
           <Key>
@@ -503,7 +485,7 @@
           </Key>
           <Property Name="templateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="customerID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Template_Customer" FromRole="Template" ToRole="Customer" />
+          <Property Name="templateName" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="TemplateDetails" Relationship="Self.FK_TemplateDetails_Template" FromRole="Template" ToRole="TemplateDetails" />
         </EntityType>
         <EntityType Name="TemplateDetail">
@@ -580,20 +562,6 @@
               <PropertyRef Name="customerID" />
             </Principal>
             <Dependent Role="CustomerLog">
-              <PropertyRef Name="customerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Template_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Template" Type="Self.Template" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="customerID" />
-            </Principal>
-            <Dependent Role="Template">
               <PropertyRef Name="customerID" />
             </Dependent>
           </ReferentialConstraint>
@@ -710,7 +678,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CangsODEntities13" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CangsODEntities14" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AccessLevels" EntityType="Self.AccessLevel" />
           <EntitySet Name="AccessRights" EntityType="Self.AccessRight" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
@@ -734,10 +702,6 @@
           <AssociationSet Name="FK_CustomerLog_Customer" Association="Self.FK_CustomerLog_Customer">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="CustomerLog" EntitySet="CustomerLogs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Template_Customer" Association="Self.FK_Template_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Template" EntitySet="Templates" />
           </AssociationSet>
           <AssociationSet Name="FK_CustomerLog_Employee" Association="Self.FK_CustomerLog_Employee">
             <End Role="Employee" EntitySet="Employees" />
@@ -777,7 +741,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CangsODModelStoreContainer" CdmEntityContainer="CangsODEntities13">
+        <EntityContainerMapping StorageEntityContainer="CangsODModelStoreContainer" CdmEntityContainer="CangsODEntities14">
           <EntitySetMapping Name="AccessLevels">
             <EntityTypeMapping TypeName="CangsODModel.AccessLevel">
               <MappingFragment StoreEntitySet="AccessLevels">
@@ -892,6 +856,7 @@
               <MappingFragment StoreEntitySet="Template">
                 <ScalarProperty Name="templateID" ColumnName="templateID" />
                 <ScalarProperty Name="customerID" ColumnName="customerID" />
+                <ScalarProperty Name="templateName" ColumnName="templateName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

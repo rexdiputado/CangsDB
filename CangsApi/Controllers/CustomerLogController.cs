@@ -12,7 +12,7 @@ namespace CangsApi.Controllers
         public ActionResult customerLog()
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities13();
+            var ctx = new Models.CangsODEntities14();
             Models.CustomerLog cuslog = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.CustomerLog>(tae);
 
             ctx.CustomerLogs.Add(cuslog);

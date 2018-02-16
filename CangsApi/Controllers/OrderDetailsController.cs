@@ -12,7 +12,7 @@ namespace CangsApi.Controllers
         public ActionResult All()
         {
             ViewBag.Title = "orderDetails";
-            var dbase = new Models.CangsODEntities13();
+            var dbase = new Models.CangsODEntities14();
             var allAL = dbase
                        .OrderDetails
                        .Select(ordet => new { ordet.transID,
@@ -33,7 +33,7 @@ namespace CangsApi.Controllers
         public ActionResult addOrderDetails()
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities13();
+            var ctx = new Models.CangsODEntities14();
 
             Models.OrderDetail order_detail = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.OrderDetail>(tae);
             var id = order_detail.itemID;
@@ -61,7 +61,7 @@ namespace CangsApi.Controllers
 
         public ActionResult returnOrderDetails(int id)
         {
-            var dbase = new Models.CangsODEntities13();
+            var dbase = new Models.CangsODEntities14();
             var ret = dbase.OrderDetails.Where(r => r.orderID == id)
                      .Select( r => new { r.transID,
                                          r.ordetQuantity,

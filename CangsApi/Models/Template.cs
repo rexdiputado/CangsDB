@@ -22,8 +22,8 @@ namespace CangsApi.Models
     
         public int templateID { get; set; }
         public int customerID { get; set; }
+        public string templateName { get; set; }
     
-        public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TemplateDetail> TemplateDetails { get; set; }
     }

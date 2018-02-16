@@ -12,11 +12,12 @@ namespace CangsApi.Controllers
         public ActionResult All()
         {
             ViewBag.Title = "template";
-            var dbase = new Models.CangsODEntities13();
+            var dbase = new Models.CangsODEntities14();
             var allAL = dbase
                        .Templates
                        .Select(temp => new { temp.templateID,
-                                             temp.customerID
+                                             temp.customerID,
+                                             temp.templateName
                                            }).ToList();
 
             return Json(allAL, JsonRequestBehavior.AllowGet);
@@ -24,9 +25,9 @@ namespace CangsApi.Controllers
 
         public ActionResult returnCustomerID(int id)
         {
-            var dbase = new Models.CangsODEntities13();
+            var dbase = new Models.CangsODEntities14();
             var returnID = dbase.Templates.Where(t => t.customerID == id)
-                           .Select(t => new { t.customerID, t.templateID }).ToList();
+                           .Select(t => new { t.customerID, t.templateID, t.templateName }).ToList();
 
             return Json(returnID, JsonRequestBehavior.AllowGet);
         }
@@ -35,7 +36,7 @@ namespace CangsApi.Controllers
         public ActionResult addTemplate()
         {
             var tae = Request.Form[0];
-            var ctx = new Models.CangsODEntities13();
+            var ctx = new Models.CangsODEntities14();
             Models.Template template = Newtonsoft.Json.JsonConvert.DeserializeObject < Models.Template>(tae);
 
             ctx.Templates.Add(template);
