@@ -123,7 +123,7 @@
     </Key>
     <Property Name="templateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="customerID" Type="Int32" Nullable="false" />
-    <Property Name="templateName" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="templateName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="TemplateDetails" Relationship="Self.FK_TemplateDetails_Template" FromRole="Template" ToRole="TemplateDetails" />
   </EntityType>
   <EntityType Name="TemplateDetail">

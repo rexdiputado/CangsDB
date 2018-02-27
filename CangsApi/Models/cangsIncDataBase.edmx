@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CangsODModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CangsODModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AccessLevels">
           <Key>
             <PropertyRef Name="levelNum" />
@@ -112,7 +112,7 @@
           </Key>
           <Property Name="templateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="customerID" Type="int" Nullable="false" />
-          <Property Name="templateName" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="templateName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="TemplateDetails">
           <Key>
@@ -357,8 +357,7 @@
             <End Role="UpdateOrderStatus" EntitySet="UpdateOrderStatus" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CangsODModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -485,7 +484,7 @@
           </Key>
           <Property Name="templateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="customerID" Type="Int32" Nullable="false" />
-          <Property Name="templateName" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="templateName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="TemplateDetails" Relationship="Self.FK_TemplateDetails_Template" FromRole="Template" ToRole="TemplateDetails" />
         </EntityType>
         <EntityType Name="TemplateDetail">

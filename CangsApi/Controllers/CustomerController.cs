@@ -30,8 +30,67 @@ namespace CangsApi.Controllers
                                             cus.verificationCode
                                           }).ToList();
 
-            return Json(allAL, JsonRequestBehavior.AllowGet); }
+            return Json(allAL, JsonRequestBehavior.AllowGet);
+        }
 
+        public ActionResult returnCusID(int id)
+        {
+            var ctx = new Models.CangsODEntities14();
+            var customer = ctx.Customers.Where(c => c.customerID == id)
+                           .Select(c => new
+                           {
+                               c.customerID,
+                               c.cusPassword,
+                               c.number,
+                               c.address,
+                               c.cusLastName,
+                               c.cusFirstName,
+                               c.cusMiddleName,
+                               c.verificationCode
+
+                           }).ToList();
+
+            return Json(customer, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult forgotPassword(int id = 0)
+        {
+            var tae = Request.Form[0];
+            var ctx = new Models.CangsODEntities14();
+            Models.Customer customer = ctx.Customers.Find(id);
+
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(customer);
+        }
+
+        [System.Web.Mvc.HttpPost]
+        public ActionResult forgotPassword(Models.Customer customer)
+        {
+            var pwd = Request.Form[0];
+            var ctx = new Models.CangsODEntities14();
+             customer = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Customer>(pwd);
+            //var cus = ctx.Customers.Where(p => p.customerID == customer.customerID).FirstOrDefault();
+           // var pass = ctx.Customers.Where(p => p.customerID == customer.customerID).FirstOrDefault();
+
+      
+                if (ModelState.IsValid)
+                {
+                    ctx.Entry(customer).State = EntityState.Modified;
+                    ctx.SaveChanges();
+                }
+
+                Response.StatusCode = 200;
+
+                //return View(customer);
+                return Content(customer.customerID.ToString());
+          
+
+           
+        }
 
         public ActionResult getCustomer(int id)
         {

@@ -75,3 +75,6 @@ C:\Users\Asus\documents\visual studio 2017\Projects\CangsApi\CangsApi\bin\Micros
 C:\Users\Asus\documents\visual studio 2017\Projects\CangsApi\CangsApi\bin\Microsoft.AI.Web.xml
 C:\Users\Asus\documents\visual studio 2017\Projects\CangsApi\CangsApi\obj\Debug\CangsApi.dll
 C:\Users\Asus\documents\visual studio 2017\Projects\CangsApi\CangsApi\obj\Debug\CangsApi.pdb
+C:\Users\Asus\documents\visual studio 2017\Projects\CangsApi\CangsApi\bin\RestSharp.dll
+C:\Users\Asus\documents\visual studio 2017\Projects\CangsApi\CangsApi\bin\TextmagicRest.dll
+C:\Users\Asus\documents\visual studio 2017\Projects\CangsApi\CangsApi\bin\RestSharp.xml

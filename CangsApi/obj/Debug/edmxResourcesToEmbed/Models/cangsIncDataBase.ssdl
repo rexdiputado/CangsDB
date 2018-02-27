@@ -107,7 +107,7 @@
     </Key>
     <Property Name="templateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="customerID" Type="int" Nullable="false" />
-    <Property Name="templateName" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="templateName" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="TemplateDetails">
     <Key>

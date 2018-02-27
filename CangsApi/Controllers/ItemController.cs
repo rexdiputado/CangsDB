@@ -20,7 +20,7 @@ namespace CangsApi.Controllers
         {
             ViewBag.Title = "Item";
             var dbase = new Models.CangsODEntities14();
-            var allAL = dbase.Items.Where(c => c.isDeleted == 0).OrderBy(i => i.category)
+            var allAL = dbase.Items.Where(c => c.isDeleted == 0 && c.itemQuantityStored != 0).OrderBy(i => i.category)
                        .Select(item => new { item.itemID,
                                              item.itemName,
                                              item.itemQuantityStored,
@@ -36,7 +36,94 @@ namespace CangsApi.Controllers
 
             return Json(allAL, JsonRequestBehavior.AllowGet);
         }
-       // [System.Web.Mvc.HttpPost]
+
+
+        public ActionResult resetPurchaseCountYear()
+        {
+            var form = Request.Form[0];
+            var dbase = new Models.CangsODEntities14();
+            var item = new Models.Item();
+            var reset = dbase.Items.Select(p => new {
+                p.itemID,
+                p.itemName,
+                p.itemQuantityStored,
+                p.itemPrice,
+                p.picture,
+                p.itemDescription,
+                p.category,
+                p.purchaseCountYear
+            }).ToArray();
+
+            for (int i = 0; i < reset.Length; i++)
+            {
+                Models.Item count = dbase.Items.Find(reset[i].itemID);
+                count.purchaseCountYear = 0;
+                dbase.SaveChanges();
+
+            }
+
+            return Content("True");
+
+        }
+
+
+        public ActionResult resetPurchaseCountQuarter()
+        {
+            var form = Request.Form[0];
+            var dbase = new Models.CangsODEntities14();
+            var item = new Models.Item();
+            var reset = dbase.Items.Select(p => new {
+                 p.itemID,
+                p.itemName,
+                p.itemQuantityStored,
+                p.itemPrice,
+                p.picture,
+                p.itemDescription,
+                p.category,
+                p.purchaseCountQuarter
+            }).ToArray();
+
+            for (int i = 0; i < reset.Length; i++)
+            {
+                Models.Item count = dbase.Items.Find(reset[i].itemID);
+                count.purchaseCountQuarter = 0;
+                dbase.SaveChanges();
+
+            }
+
+            return Content("True");
+
+        }
+
+
+        public ActionResult resetPurchaseCountMonth()
+        {
+            var form = Request.Form[0];
+            var dbase = new Models.CangsODEntities14();
+            var item = new Models.Item();
+            var reset = dbase.Items.Select(p => new {
+                                                        p.itemID,
+                                                        p.itemName,
+                                                        p.itemQuantityStored,
+                                                        p.itemPrice,
+                                                        p.picture,
+                                                        p.itemDescription,
+                                                        p.category,
+                                                        p.purchaseCountMonth
+                                                     }).ToArray();
+
+            for(int i = 0; i < reset.Length; i++)
+            {
+                Models.Item  count = dbase.Items.Find(reset[i].itemID);
+                count.purchaseCountMonth = 0;
+                dbase.SaveChanges();
+                
+            }
+
+            return Content("True");
+
+        }
+        // [System.Web.Mvc.HttpPost]
         public ActionResult returnCategory()
         {
             var category = Request.Form[0];
@@ -56,6 +143,25 @@ namespace CangsApi.Controllers
             return Json(cat, JsonRequestBehavior.AllowGet);
         }
         
+        public ActionResult updateItemQty(int id, int id2)
+        {
+            var dbase = new Models.CangsODEntities14();
+            var find = dbase.Items.Where(i => i.itemID == id).FirstOrDefault();
+            var qty = dbase.OrderDetails.Where(i => i.orderID == id2 && i.itemID == id).FirstOrDefault();
+
+            if ((find != null && qty != null))
+            {
+                find.itemQuantityStored -= Int32.Parse(qty.ordetQuantity);
+                dbase.SaveChanges();
+                return Content("success");
+            }
+            else
+            {
+                return Content("failed");
+            }
+
+        }
+
         public ActionResult updatePurchaseCount(int id, int id2)
         {
             var dbase = new Models.CangsODEntities14();
@@ -76,7 +182,7 @@ namespace CangsApi.Controllers
                 }
                 else
                 {
-                    return Content("FUCK");
+                    return Content("fail");
                 }
             //var qty = this.getOrderQty();
            
@@ -138,7 +244,7 @@ namespace CangsApi.Controllers
             var ctx = new Models.CangsODEntities14();
             int limit = 20;
 
-            var descending = ctx.Items.Where(i => i.isDeleted == 0)
+            var descending = ctx.Items.Where(i => i.isDeleted == 0 && i.purchaseCountYear != 0)
                              .OrderByDescending(x => x.purchaseCountYear)
                              .Take(limit).Select(d => new {
                                  d.itemID,
@@ -159,7 +265,7 @@ namespace CangsApi.Controllers
             var ctx = new Models.CangsODEntities14();
             int limit = 20;
 
-            var descending = ctx.Items.Where(i => i.isDeleted == 0)
+            var descending = ctx.Items.Where(i => i.isDeleted == 0 && i.purchaseCountQuarter != 0)
                              .OrderByDescending(x => x.purchaseCountQuarter)
                              .Take(limit).Select(d => new {
                                  d.itemID,
@@ -180,7 +286,7 @@ namespace CangsApi.Controllers
             var ctx = new Models.CangsODEntities14();
             int limit = 20;
 
-            var descending = ctx.Items.Where(i => i.isDeleted == 0)
+            var descending = ctx.Items.Where(i => i.isDeleted == 0 && i.purchaseCountMonth != 0)
                              .OrderByDescending(x => x.purchaseCountMonth)
                              .Take(limit).Select(d => new {
                                  d.itemID,

@@ -37,10 +37,11 @@ namespace CangsApi.Controllers
             return Json(allAL, JsonRequestBehavior.AllowGet);
         }
 
+
        public ActionResult filterStatusPV()
         {
             var dbase = new Models.CangsODEntities14();
-            var filter = dbase.Orders.Where(f => f.orderStatus == "pending"  || f.orderStatus == "verified").OrderBy(s => s.orderStatus)
+            var filter = dbase.Orders.Where(f => f.orderStatus == "pending"  || f.orderStatus == "verified").OrderByDescending(s => s.orderID).ThenBy(s => s.orderStatus)
                          .Select(o => new {
                              o.orderID,
                              o.orderDate,
