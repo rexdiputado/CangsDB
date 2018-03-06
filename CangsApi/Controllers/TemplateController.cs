@@ -26,6 +26,72 @@ namespace CangsApi.Controllers
             return Json(allAL, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult deleteTempDetails()
+        {
+            var req = Request.Form[0];
+            var dbase = new Models.CangsODEntities14();
+            Models.TemplateDetail temp = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.TemplateDetail>(req);
+            var id = temp.templateID;
+            var tempde = dbase.TemplateDetails.Where(i => i.templateID == id)
+                      .Select(i => new {
+                          i.tempDetailID,
+                          i.temdeQuantity,
+                          i.itemID,
+                          i.templateID
+                      }).ToList();
+
+            if (ModelState.IsValid)
+            {
+
+                dbase.Entry(temp).State = EntityState.Modified;
+                dbase.TemplateDetails.Remove(temp);
+                dbase.SaveChanges();
+            }
+
+            return Content("deleted");
+        }
+
+        public ActionResult getTempDetails(int id)
+        { 
+            var dbase = new Models.CangsODEntities14();
+            var tempde = dbase.TemplateDetails.Where(i => i.templateID == id)
+                      .Select(i => new {
+                          i.tempDetailID,
+                          i.temdeQuantity,
+                          i.itemID,
+                          i.templateID
+                      }).ToList();
+
+            return Json(tempde, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [System.Web.Mvc.HttpPost]
+        public ActionResult editTemplate()
+        {
+            
+            var req = Request.Form[0];
+            var dbase = new Models.CangsODEntities14();
+            Models.Template temp = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Template>(req);
+            var id = temp.templateID;
+            var name = temp.templateName; 
+            var delete = dbase.Templates.Where(i => i.templateID == id)
+                      .Select(i => new {
+                                          i.templateID,
+                                          i.customerID,
+                                          i.templateName
+                                        }).ToList();
+
+            if (ModelState.IsValid)
+            {
+                dbase.Entry(temp).State = EntityState.Modified;
+                dbase.SaveChanges();
+            }
+
+
+            return Content("");
+        }
+
         public ActionResult returnCustomerID(int id)
         {
             var dbase = new Models.CangsODEntities14();

@@ -36,7 +36,18 @@ namespace CangsApi.Controllers
 
             return Json(allAL, JsonRequestBehavior.AllowGet);
         }
+        
+        public ActionResult returnQuantityStored()
+        {
+            var dbase = new Models.CangsODEntities14();
+            var qty = dbase.Items.Select(q => new
+                                        {
+                                            q.itemID,
+                                            q.itemQuantityStored
+                                        }).ToList();
 
+            return Json(qty, JsonRequestBehavior.AllowGet);
+        }
 
        public ActionResult filterStatusPV()
         {
@@ -101,6 +112,15 @@ namespace CangsApi.Controllers
             return Json(filter, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult returnDate()
+        {
+            var currentTime = DateTime.Now.ToString();
+            //order.orderDate = DateTime.Now.ToString();
+
+            return Json(currentTime, JsonRequestBehavior.AllowGet);
+
+        }
+
         //POST METHOD: ADD
         [System.Web.Mvc.HttpPost]
         public ActionResult addOrder()
@@ -109,12 +129,15 @@ namespace CangsApi.Controllers
             var ctx = new Models.CangsODEntities14();
             Models.Order order = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Order>(tae);
 
-            ctx.Orders.Add(order);
-            ctx.SaveChanges();
+           
+                order.orderDate = DateTime.Now.ToString("MM/dd/yyyy HH:mm tt");
 
-            //Response.StatusCode = 200; //try catch if errpr return errpr stautis code
+                ctx.Orders.Add(order);
+                ctx.SaveChanges();
 
-            return Content(order.orderID.ToString());
+                //Response.StatusCode = 200; //try catch if errpr return errpr stautis code
+
+                return Content(order.orderID.ToString());
         }
 
 
@@ -164,19 +187,48 @@ namespace CangsApi.Controllers
         {
             var tae = Request.Form[0];
             var ctx = new Models.CangsODEntities14();
+            var ordet = new Models.OrderDetail();
+           
             order = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Order>(tae);
-
-            if (ModelState.IsValid)
-            {
-                ctx.Entry(order).State = EntityState.Modified;
-                ctx.SaveChanges();
-            }
+            
+                if (ModelState.IsValid)
+                {
+                    ctx.Entry(order).State = EntityState.Modified;
+                    ctx.SaveChanges();
+                }
 
             Response.StatusCode = 200;
-
+            
             //return View(customer);
             return Content(order.orderID.ToString());
 
         }
+
+       /* public ActionResult updatePurchaseCount(int id, int id2)
+        {
+            var dbase = new Models.CangsODEntities14();
+            var find = dbase.Items.Where(i => i.itemID == id).FirstOrDefault();
+            var qty = dbase.OrderDetails.Select(q => new
+            {
+                q.transID,
+                q.ordetQuantity,
+                q.ordetPrice,
+                q.ordetSubtotal,
+                q.orderID,
+                q.itemID,
+                q.itemName,
+                q.itemDescription
+            }).ToArray();
+
+            for (int i = 0; i < qty.Length; i++)
+            {
+                Models.OrderDetail q = dbase.OrderDetails.Where(d => d.orderID == id2 && d.itemID == id).FirstOrDefault();
+                find.itemQuantityStored += Int32.Parse(q.ordetQuantity);
+                dbase.SaveChanges();
+            }
+
+            return Content("");
+
+        }*/
     }
 }

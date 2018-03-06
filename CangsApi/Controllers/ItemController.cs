@@ -20,7 +20,7 @@ namespace CangsApi.Controllers
         {
             ViewBag.Title = "Item";
             var dbase = new Models.CangsODEntities14();
-            var allAL = dbase.Items.Where(c => c.isDeleted == 0 && c.itemQuantityStored != 0).OrderBy(i => i.category)
+            var allAL = dbase.Items.Where(c => c.isDeleted == 0).OrderBy(i => i.category)
                        .Select(item => new { item.itemID,
                                              item.itemName,
                                              item.itemQuantityStored,
@@ -37,6 +37,24 @@ namespace CangsApi.Controllers
             return Json(allAL, JsonRequestBehavior.AllowGet);
         }
 
+        [System.Web.Mvc.HttpPost]
+        public ActionResult changeItemURL()
+        {
+            var tae = Request.Form[0];
+            var ctx = new Models.CangsODEntities14();
+            Models.Item item = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Item>(tae);
+
+            if (ModelState.IsValid)
+            {
+                ctx.Entry(item).State = EntityState.Modified;
+                ctx.SaveChanges();
+            }
+
+            Response.StatusCode = 200;
+
+            return Content(item.itemID.ToString());
+
+        }
 
         public ActionResult resetPurchaseCountYear()
         {
@@ -129,7 +147,7 @@ namespace CangsApi.Controllers
             var category = Request.Form[0];
             var dbase = new Models.CangsODEntities14();
             Models.Item retcat = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Item>(category);
-            var cat = dbase.Items.Where(c => c.category == retcat.category)
+            var cat = dbase.Items.Where(c => c.category == retcat.category && c.itemQuantityStored > 0 && c.isDeleted ==0)
                       .Select(c => new
                       {
                           c.itemID,
@@ -170,7 +188,7 @@ namespace CangsApi.Controllers
 
          
                
-                if ((find !=null && qty != null ))
+               if ((find !=null && qty != null ))
                 {
                     find.purchaseCountAllTime += Int32.Parse(qty.ordetQuantity);
                     find.purchaseCountMonth += Int32.Parse(qty.ordetQuantity);
@@ -224,7 +242,7 @@ namespace CangsApi.Controllers
             var ctx = new Models.CangsODEntities14();
             int limit = 20;
          
-            var descending = ctx.Items.Where(i => i.isDeleted == 0)
+            var descending = ctx.Items.Where(i => i.isDeleted == 0 && i.purchaseCountAllTime != 0)
                              .OrderByDescending(x => x.purchaseCountAllTime)
                              .Take(limit).Select(d => new { d.itemID,
                                                             d.itemName,

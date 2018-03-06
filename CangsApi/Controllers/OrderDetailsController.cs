@@ -44,7 +44,7 @@ namespace CangsApi.Controllers
             ctx.SaveChanges();
             var itemQty = new ItemController().updateItemQty(id, id2);
             var purchaseCount = new ItemController().updatePurchaseCount(id, id2);
-            
+            //var qty = new OrdersController().editOrder(id, id2);
 
 
             /* var item = new Models.Item();

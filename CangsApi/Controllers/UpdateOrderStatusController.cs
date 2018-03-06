@@ -25,16 +25,22 @@ namespace CangsApi.Controllers
             return Json(allAL, JsonRequestBehavior.AllowGet);
         }
 
+       
+
+
         //POST METHOD: ADD
         [System.Web.Mvc.HttpPost]
         public ActionResult addUpdateStatus()
         {
             var tae = Request.Form[0];
             var ctx = new Models.CangsODEntities14();
+            
             Models.UpdateOrderStatus update_stat = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.UpdateOrderStatus>(tae);
-
+       
+           
             ctx.UpdateOrderStatus1.Add(update_stat);
             ctx.SaveChanges();
+            
 
             Response.StatusCode = 200; //try catch if errpr return errpr stautis code
 
